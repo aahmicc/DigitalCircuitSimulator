@@ -1,23 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.effect.Blend?>
-<?import javafx.scene.input.KeyCodeCombination?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.input.*?>
+<?import javafx.scene.layout.*?>
 
-<GridPane prefHeight="600.0" prefWidth="800.0" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane prefHeight="600.0" prefWidth="800.0" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="335.0" minWidth="10.0" prefWidth="167.0" />
     <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
@@ -124,7 +113,7 @@
             </Menu>
             <Menu text="_Options">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#globalOptionsAction" text="Global options" />
+                  <MenuItem mnemonicParsing="false" onAction="#globalOptionsAction" text="Settings" />
                   <MenuItem mnemonicParsing="false" onAction="#projectOptionsAction" text="Project options" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" onAction="#customizeAction" text="Customize..." />
