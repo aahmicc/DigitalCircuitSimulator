@@ -14,6 +14,7 @@ import javafx.scene.control.Separator;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Line;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ public class MainWindowController implements Initializable {
 
     private boolean connecting = false;
     private LogicCircuit connectingElement = null;
+    private double connectingX, connectingY;
     private Map<Button, LogicCircuit> logicCircuitMap = new HashMap<>();
 
     public LogicCircuit currentlyPickedLC;
@@ -112,10 +114,20 @@ public class MainWindowController implements Initializable {
                         logicCircuitMap.get(b).setInputs(connectingElement.getOutputs());
                         connecting = false;
                         logicCircuitMap.get(b).operation(logicCircuitMap.get(b).getInputs());
+
+                        Line line = new Line();
+                        line.setStartX(actionEvent.getX()-35);
+                        line.setStartY(actionEvent.getY()+1);
+                        line.setEndX(connectingX);
+                        line.setEndY(connectingY);
+                        line.setOpacity(0.75);
+                        paneId.getChildren().add(line);
                     }
                 } else {
                     connecting = true;
                     connectingElement = notGate;
+                    connectingX = actionEvent.getX()+35;
+                    connectingY = actionEvent.getY()+1;
                 }
             }
         });
@@ -148,6 +160,8 @@ public class MainWindowController implements Initializable {
             @Override public void handle(ActionEvent e) {
                 connecting = true;
                 connectingElement = constantGate;
+                connectingX = actionEvent.getX()+12;
+                connectingY = actionEvent.getY()+1;
             }
         });
         paneId.getChildren().add(b);
@@ -173,6 +187,13 @@ public class MainWindowController implements Initializable {
                     connecting = false;
                     if(connectingElement.getOutputs().get(0)) b.setText("1");
                     else b.setText("0");
+                    Line line = new Line();
+                    line.setStartX(actionEvent.getX()-12);
+                    line.setStartY(actionEvent.getY()+1);
+                    line.setEndX(connectingX);
+                    line.setEndY(connectingY);
+                    line.setOpacity(1);
+                    paneId.getChildren().add(line);
                 }
             }
         });
