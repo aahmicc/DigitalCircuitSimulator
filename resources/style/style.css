@@ -224,3 +224,51 @@
 }
 .separatorStyle{
 }
+.standardNotStyle{
+    -fx-background-color:transparent;
+    -fx-background-image: url("/standardGateIcons/standardNot.png");
+    -fx-background-size: 70px 37px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+.standardNotStyleHover{
+    -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 5, 4, 3;
+    -fx-background-image: url("/standardGateIcons/standardNot.png");
+    -fx-background-size: 70px 37px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+.constantStyle{
+    -fx-background-color:transparent;
+    -fx-background-image: url("/standardGateIcons/constant.png");
+    -fx-background-size: 25px 25px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+.constantStyleHover{
+    -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 5, 4, 3;
+    -fx-background-image: url("/standardGateIcons/constant.png");
+    -fx-background-size: 25px 25px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+.outputStyle{
+    -fx-background-color:transparent;
+    -fx-background-image: url("/standardGateIcons/output.png");
+    -fx-background-size: 25px 25px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+.outputStyleHover{
+    -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 5, 4, 3;
+    -fx-background-image: url("/standardGateIcons/output.png");
+    -fx-background-size: 25px 25px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}

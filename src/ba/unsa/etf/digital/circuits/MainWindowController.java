@@ -1,39 +1,182 @@
 package ba.unsa.etf.digital.circuits;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Separator;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class MainWindowController implements Initializable {
 
-    public Button newId;
-    public Button openId;
-    public Button saveId;
-    public Button printId;
-    public Button undoId;
-    public Button redoId;
-    public Button componentsId;
-    public Button playId;
-    public Button pauseId;
-    public Button stopId;
-    public Button optionsId;
-    public Button zoomInId;
-    public Button zoomOutId;
-    public Button zoomSheetId;
-
+    public Button newId, openId, saveId, printId, undoId, redoId, componentsId;
+    public Button pauseId, zoomOutId, zoomSheetId, playId, stopId, optionsId, zoomInId;
     public Separator separator1,separator2,separator3,separator4,separator5,separator6,separator7,separator8;
+    public ChoiceBox<LogicCircuit> recentlyUsedChoice;
+    public Pane paneId;
+
+    private boolean connecting = false;
+    private LogicCircuit connectingElement = null;
+    private Map<Button, LogicCircuit> logicCircuitMap = new HashMap<>();
+
+    public LogicCircuit currentlyPickedLC;
 
     public MainWindowController() {
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        recentlyUsedChoice.setItems(FXCollections.observableArrayList(createStandardGates()));
+        recentlyUsedChoice.setValue(recentlyUsedChoice.getItems().get(0));
+
+        recentlyUsedChoice.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
+                currentlyPickedLC = recentlyUsedChoice.getItems().get((Integer) number2);
+            }
+        });
+
         setIconStyles();
         setSeparatorStyles();
+    }
+
+    private ArrayList<LogicCircuit> createStandardGates() {
+        ArrayList<LogicCircuit> retValues = new ArrayList<>();
+
+        None n = new None();
+        retValues.add(n);
+
+        ConstantGate conGate = new ConstantGate("Constant Input", 0, 1, null, true);
+        retValues.add(conGate);
+
+        Output output = new Output("Output");
+        retValues.add(output);
+
+        ArrayList<Boolean> notArray = new ArrayList<>();
+        notArray.add(false);
+        NotGate not = new NotGate("Not1 [Standard]",1,1, notArray);
+        retValues.add(not);
+
+        return retValues;
+    }
+
+    public void drawAction(MouseEvent actionEvent) {
+        if(currentlyPickedLC != null) {
+            if(currentlyPickedLC.getClass().equals(NotGate.class)) drawStandardNotGate(actionEvent);
+            else if(currentlyPickedLC.getClass().equals(ConstantGate.class)) drawConstantGate(actionEvent);
+            else if(currentlyPickedLC.getClass().equals(Output.class)) drawOutputGate(actionEvent);
+        }
+    }
+
+    private void drawStandardNotGate(MouseEvent actionEvent) {
+        Button b = new Button();
+        b.setLayoutX(actionEvent.getX()-35);
+        b.setLayoutY(actionEvent.getY()-18);
+        b.setPrefSize(70,37);
+        b.getStyleClass().add("standardNotStyle");
+
+        int cnt = 1;
+        for (LogicCircuit l: logicCircuitMap.values())
+            if (l.getClass().equals(NotGate.class)) cnt++;
+        String name = "not" + cnt;
+        NotGate notGate = new NotGate(name,1,1);
+        logicCircuitMap.put(b, notGate);
+
+        b.setOnMouseEntered(e-> {
+            b.getStyleClass().remove("standardNotStyle");
+            b.getStyleClass().add("standardNotStyleHover");
+        });
+        b.setOnMouseExited(e-> {
+            b.getStyleClass().remove("standardNotStyleHover");
+            b.getStyleClass().add("standardNotStyle");
+        });
+        b.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                if(connecting) {
+                    if(connectingElement != logicCircuitMap.get(b)) {
+                        logicCircuitMap.get(b).setInputs(connectingElement.getOutputs());
+                        connecting = false;
+                        logicCircuitMap.get(b).operation(logicCircuitMap.get(b).getInputs());
+                    }
+                } else {
+                    connecting = true;
+                    connectingElement = notGate;
+                }
+            }
+        });
+        paneId.getChildren().add(b);
+    }
+
+    private void drawConstantGate(MouseEvent actionEvent) {
+        Button b = new Button("1");
+        b.setLayoutX(actionEvent.getX()-12);
+        b.setLayoutY(actionEvent.getY()-12);
+        b.setPrefSize(26,26);
+        b.getStyleClass().add("constantStyle");
+
+        int cnt = 1;
+        for (LogicCircuit l: logicCircuitMap.values())
+            if (l.getClass().equals(ConstantGate.class)) cnt++;
+        String name = "constant" + cnt;
+        ConstantGate constantGate = new ConstantGate(name,1,1,true);
+        logicCircuitMap.put(b, constantGate);
+
+        b.setOnMouseEntered(e-> {
+            b.getStyleClass().remove("constantStyle");
+            b.getStyleClass().add("constantStyleHover");
+        });
+        b.setOnMouseExited(e-> {
+            b.getStyleClass().remove("constantStyleHover");
+            b.getStyleClass().add("constantStyle");
+        });
+        b.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                connecting = true;
+                connectingElement = constantGate;
+            }
+        });
+        paneId.getChildren().add(b);
+    }
+
+    private void drawOutputGate(MouseEvent actionEvent) {
+        Button b = new Button();
+        b.setLayoutX(actionEvent.getX()-12);
+        b.setLayoutY(actionEvent.getY()-12);
+        b.setPrefSize(26,26);
+        b.getStyleClass().add("outputStyle");
+        b.setOnMouseEntered(e-> {
+            b.getStyleClass().remove("outputStyle");
+            b.getStyleClass().add("outputStyleHover");
+        });
+        b.setOnMouseExited(e-> {
+            b.getStyleClass().remove("outputStyleHover");
+            b.getStyleClass().add("outputStyle");
+        });
+        b.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                if(connecting) {
+                    connecting = false;
+                    if(connectingElement.getOutputs().get(0)) b.setText("1");
+                    else b.setText("0");
+                }
+            }
+        });
+        paneId.getChildren().add(b);
     }
 
     public void newAction(ActionEvent actionEvent) {

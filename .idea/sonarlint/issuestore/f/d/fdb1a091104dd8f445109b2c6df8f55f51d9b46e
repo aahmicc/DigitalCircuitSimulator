@@ -1,0 +1,11 @@
+
+
+java:S13193"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(üŒ¨è8¢‰…É/
+”
+java:S13197"rThe type of the "outputs" object should be an interface such as "List" rather than the implementation "ArrayList".(û‹ı¿øÿÿÿÿ8¢‰…É/
+=
+java:S2129" Remove this "String" constructor(Š­ı¡8œÔ„É/
+’
+java:S1319+"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(Ç°Ì†şÿÿÿÿ8¢‰…É/
+“
+java:S1319/"qThe type of the "inputs" object should be an interface such as "List" rather than the implementation "ArrayList".(”ØÚ§şÿÿÿÿ8¢‰…É/

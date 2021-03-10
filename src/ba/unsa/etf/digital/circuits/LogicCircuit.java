@@ -2,18 +2,46 @@ package ba.unsa.etf.digital.circuits;
 
 import java.util.ArrayList;
 
-public class LogicCircuit {
+public abstract class LogicCircuit {
 
     private String name;
     private int numberOfInputs;
     private int numberOfOutputs;
-    private ArrayList<Boolean> inputs;
-    private ArrayList<Boolean> outputs;
+    private ArrayList<Boolean> inputs = new ArrayList<>();
+    private ArrayList<Boolean> outputs = new ArrayList<>();
+
+    public abstract void operation(ArrayList<Boolean> inputs);
 
     public LogicCircuit() {
         inputs = new ArrayList<>();
         outputs = new ArrayList<>();
         name = new String();
+    }
+
+    public LogicCircuit(String name, int numberOfInputs, int numberOfOutputs, ArrayList<Boolean> inputs) {
+        this.name = name;
+        this.numberOfInputs = numberOfInputs;
+        this.numberOfOutputs = numberOfOutputs;
+        this.inputs = inputs;
+        operation(inputs);
+    }
+
+    public LogicCircuit(String name, int numberOfInputs, int numberOfOutputs, ArrayList<Boolean> inputs, ArrayList<Boolean> outputs) {
+        this.name = name;
+        this.numberOfInputs = numberOfInputs;
+        this.numberOfOutputs = numberOfOutputs;
+        this.inputs = inputs;
+        this.outputs = outputs;
+    }
+
+    public LogicCircuit(String name) {
+        this.name = name;
+    }
+
+    public LogicCircuit(String name, int numberOfInputs, int numberOfOutputs) {
+        this.name = name;
+        this.numberOfInputs = numberOfInputs;
+        this.numberOfOutputs = numberOfOutputs;
     }
 
     public String getName() {
