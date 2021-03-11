@@ -30,6 +30,7 @@ public class ConstantGate extends LogicCircuit {
 
     @Override
     public String toString() {
-        return "Input [Standard]";
+        if(con) return "Constant Input [High]";
+        return "Constant Input [Low]";
     }
 }

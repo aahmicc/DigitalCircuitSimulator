@@ -63,8 +63,11 @@ public class MainWindowController implements Initializable {
         None n = new None();
         retValues.add(n);
 
-        ConstantGate conGate = new ConstantGate("Constant Input", 0, 1, null, true);
-        retValues.add(conGate);
+        ConstantGate conGateH = new ConstantGate("Constant Input [High]", 0, 1, null, true);
+        retValues.add(conGateH);
+
+        ConstantGate conGateL = new ConstantGate("Constant Input [Low]", 0, 1, null, false);
+        retValues.add(conGateL);
 
         Output output = new Output("Output");
         retValues.add(output);
@@ -80,7 +83,12 @@ public class MainWindowController implements Initializable {
     public void drawAction(MouseEvent actionEvent) {
         if(currentlyPickedLC != null) {
             if(currentlyPickedLC.getClass().equals(NotGate.class)) drawStandardNotGate(actionEvent);
-            else if(currentlyPickedLC.getClass().equals(ConstantGate.class)) drawConstantGate(actionEvent);
+            else if(currentlyPickedLC.getClass().equals(ConstantGate.class)) {
+                if(currentlyPickedLC.getName().equals("Constant Input [High]"))
+                    drawConstantGateHigh(actionEvent);
+                else if(currentlyPickedLC.getName().equals("Constant Input [Low]"))
+                    drawConstantGateLow(actionEvent);
+            }
             else if(currentlyPickedLC.getClass().equals(Output.class)) drawOutputGate(actionEvent);
         }
     }
@@ -134,7 +142,7 @@ public class MainWindowController implements Initializable {
         paneId.getChildren().add(b);
     }
 
-    private void drawConstantGate(MouseEvent actionEvent) {
+    private void drawConstantGateHigh(MouseEvent actionEvent) {
         Button b = new Button("1");
         b.setLayoutX(actionEvent.getX()-12);
         b.setLayoutY(actionEvent.getY()-12);
@@ -146,6 +154,39 @@ public class MainWindowController implements Initializable {
             if (l.getClass().equals(ConstantGate.class)) cnt++;
         String name = "constant" + cnt;
         ConstantGate constantGate = new ConstantGate(name,1,1,true);
+        logicCircuitMap.put(b, constantGate);
+
+        b.setOnMouseEntered(e-> {
+            b.getStyleClass().remove("constantStyle");
+            b.getStyleClass().add("constantStyleHover");
+        });
+        b.setOnMouseExited(e-> {
+            b.getStyleClass().remove("constantStyleHover");
+            b.getStyleClass().add("constantStyle");
+        });
+        b.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                connecting = true;
+                connectingElement = constantGate;
+                connectingX = actionEvent.getX()+12;
+                connectingY = actionEvent.getY()+1;
+            }
+        });
+        paneId.getChildren().add(b);
+    }
+
+    private void drawConstantGateLow(MouseEvent actionEvent) {
+        Button b = new Button("0");
+        b.setLayoutX(actionEvent.getX()-12);
+        b.setLayoutY(actionEvent.getY()-12);
+        b.setPrefSize(26,26);
+        b.getStyleClass().add("constantStyle");
+
+        int cnt = 1;
+        for (LogicCircuit l: logicCircuitMap.values())
+            if (l.getClass().equals(ConstantGate.class)) cnt++;
+        String name = "constant" + cnt;
+        ConstantGate constantGate = new ConstantGate(name,1,1,false);
         logicCircuitMap.put(b, constantGate);
 
         b.setOnMouseEntered(e-> {
