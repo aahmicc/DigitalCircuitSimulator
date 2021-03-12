@@ -121,14 +121,25 @@ public class MainWindowController implements Initializable {
             @Override public void handle(ActionEvent e) {
                 if(connecting) {
                     if(connectingElement != logicCircuitMap.get(b)) {
-
+                        LogicCircuit p = allConnections.get(0);
                         Line line = new Line();
+
+                        boolean del = false;
+                        for( LogicCircuit l: allConnections.keySet()) {
+                            if(l.equals(connectingElement)) {
+                                paneId.getChildren().remove(allConnectionLines.get(allConnections.get(l)));
+                                allConnectionLines.remove(allConnections.get(l));
+                                p = l;
+                                del = true;
+                            }
+                        }
+                        if(del) allConnections.remove(p);
+
 
                         if(allConnections.containsValue(logicCircuitMap.get(b))) {
                             paneId.getChildren().remove(allConnectionLines.get(logicCircuitMap.get(b)));
                             allConnectionLines.remove(logicCircuitMap.get(b));
 
-                            LogicCircuit p = allConnections.get(0);
                             for(LogicCircuit l: allConnections.keySet()) {
                                 if(allConnections.get(l).equals(logicCircuitMap.get(b)))
                                     p = l;
@@ -255,13 +266,24 @@ public class MainWindowController implements Initializable {
             @Override public void handle(ActionEvent e) {
                 if(connecting) {
                     connecting = false;
-
+                    LogicCircuit p = allConnections.get(0);
                     Line line = new Line();
+
+                    boolean del = false;
+                    for( LogicCircuit l: allConnections.keySet()) {
+                        if(l.equals(connectingElement)) {
+                            paneId.getChildren().remove(allConnectionLines.get(allConnections.get(l)));
+                            allConnectionLines.remove(allConnections.get(l));
+                            p = l;
+                            del = true;
+                        }
+                    }
+                    if(del) allConnections.remove(p);
+
                     if(allConnections.containsValue(logicCircuitMap.get(b))) {
                         paneId.getChildren().remove(allConnectionLines.get(logicCircuitMap.get(b)));
                         allConnectionLines.remove(logicCircuitMap.get(b));
 
-                        LogicCircuit p = allConnections.get(0);
                         for(LogicCircuit l: allConnections.keySet()) {
                             if(allConnections.get(l).equals(logicCircuitMap.get(b)))
                                 p = l;
