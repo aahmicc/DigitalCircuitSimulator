@@ -1,219 +1,242 @@
 
-y
-java:S1104"WMake zoomSheetId a static final constant or non-public and provide accessors if needed.(ˆêµ¾ûÿÿÿÿ8ª¯Ñö/
-¤
-java:S1186™"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(˜‚ÿÿÿÿÿ8Ü¬´Á/
-¤
-java:S1186Š"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(öÃºßşÿÿÿÿ8±ô³Á/
-x
-java:S1104"VMake separator5 a static final constant or non-public and provide accessors if needed.(ó®¾åùÿÿÿÿ8©·ŠÈ/
-x
-java:S1104"VMake separator6 a static final constant or non-public and provide accessors if needed.(ó®¾åùÿÿÿÿ8©·ŠÈ/
-J
-java:S1659"(Declare "separator2" on a separate line.(ó®¾åùÿÿÿÿ8©·ŠÈ/
-F
-java:S1604¸"(Make this anonymous inner class a lambda(¤–ÒÉ8ª¯Ñö/
-F
-java:S1659"$Declare "saveId" on a separate line.(÷£ßûÿÿÿÿ8ª¯Ñö/
-¤
-java:S1186´"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Å£–ûÿÿÿÿ8•¼ŒÅ/
-w
-java:S1104"UMake zoomOutId a static final constant or non-public and provide accessors if needed.(ˆêµ¾ûÿÿÿÿ8ª¯Ñö/
-F
-java:S1659"$Declare "stopId" on a separate line.(ˆêµ¾ûÿÿÿÿ8ª¯Ñö/
+{
+java:S1104"^Make recentlyUsedChoice a static final constant or non-public and provide accessors if needed.(Î§¸8ª¯Ñö/
 Ÿ
-java:S1186„"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Üéº¢8·³Á/
+java:S1186Ù"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ş§©Œ8†áïœ‚/
+u
+java:S3776ğ"RRefactor this method to reduce its Cognitive Complexity from 33 to the 15 allowed.(ùŠÆ¨øÿÿÿÿ8†áïœ‚/
+E
+java:S16043"(Make this anonymous inner class a lambda(®‡†³8ª¯Ñö/
+Ÿ
+java:S1186ë"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¦Ï¦×8†áïœ‚/
+¤
+java:S1186å"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(‡‡”¤úÿÿÿÿ8†áïœ‚/
+Ÿ
+java:S1186‰"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(úğ“8†áïœ‚/
+t
+java:S1104"RMake undoId a static final constant or non-public and provide accessors if needed.(÷£ßûÿÿÿÿ8ª¯Ñö/
+M
+java:S5411À"*Use the primitive boolean expression here.(½¨‡÷ıÿÿÿÿ8†áïœ‚/
+p
+java:S1192¾"MDefine a constant instead of duplicating this literal "optionsStyle" 3 times.(ííñšøÿÿÿÿ8óĞ˜Æ/
+
+java:S1104("]Make currentlyPickedLC a static final constant or non-public and provide accessors if needed.(Á—¶ûúÿÿÿÿ8ª¯Ñö/
+k	java:S100¡"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(½¥Ü’8†áïœ‚/
+h
+java:S1192»"JDefine a constant instead of duplicating this literal "playStyle" 3 times.(õ°Òƒ8¾¶•Æ/
+¤
+java:S1186â"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ù„•éÿÿÿÿÿ8†áïœ‚/
+h
+java:S1192µ"JDefine a constant instead of duplicating this literal "openStyle" 3 times.(¤¨Ñ‰8ˆŒ×‚/
+
+java:S1186’"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Íó±8†áïœ‚/
+u
+java:S1104"SMake printId a static final constant or non-public and provide accessors if needed.(÷£ßûÿÿÿÿ8ª¯Ñö/
 s
 java:S1104"QMake newId a static final constant or non-public and provide accessors if needed.(÷£ßûÿÿÿÿ8ª¯Ñö/
-F
-java:S1659"$Declare "openId" on a separate line.(÷£ßûÿÿÿÿ8ª¯Ñö/
-t
-java:S1104"RMake saveId a static final constant or non-public and provide accessors if needed.(÷£ßûÿÿÿÿ8ª¯Ñö/
-q
-java:S1192"NDefine a constant instead of duplicating this literal "constantStyle" 3 times.(Î ğàúÿÿÿÿ8ª¯Ñö/
-h
-java:S1192¹"JDefine a constant instead of duplicating this literal "openStyle" 3 times.(¤¨Ñ‰8æúúÅ/
-i
-java:S1192»"KDefine a constant instead of duplicating this literal "printStyle" 3 times.(éó«•8È¡ıÅ/
+Ÿ
+java:S1186ú"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(²¸…´8†áïœ‚/
+J
+java:S1659"(Declare "separator2" on a separate line.(ó®¾åùÿÿÿÿ8©·ŠÈ/
+H
+java:S1659"&Declare "zoomInId" on a separate line.(ˆêµ¾ûÿÿÿÿ8ª¯Ñö/
+m
+java:S1192Á"ODefine a constant instead of duplicating this literal "zoomSheetStyle" 3 times.(‚¯ûâ8†áïœ‚/
+Ÿ
+java:S1186¤"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ûÎ¨ì8†áïœ‚/
+K
+java:S1659")Declare "zoomSheetId" on a separate line.(ˆêµ¾ûÿÿÿÿ8ª¯Ñö/
+x
+java:S1104"VMake separator1 a static final constant or non-public and provide accessors if needed.(ó®¾åùÿÿÿÿ8©·ŠÈ/
+m
+java:S1192¶"JDefine a constant instead of duplicating this literal "saveStyle" 3 times.(®Ë¯ñøÿÿÿÿ8ş˜üÅ/
 x
 java:S1104"VMake separator8 a static final constant or non-public and provide accessors if needed.(ó®¾åùÿÿÿÿ8©·ŠÈ/
 F
-java:S1659"$Declare "redoId" on a separate line.(÷£ßûÿÿÿÿ8ª¯Ñö/
-Ÿ
-java:S1186±"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(É“8•¼ŒÅ/
-
-java:S1186("€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(”‹ö˜8öÚíÀ/
-Ÿ
-java:S1186ş"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(²¸…´8·³Á/
-Ÿ
-java:S1186Ô"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ÁĞÊÊ8Ãº°Á/
-J
-java:S1659"(Declare "separator6" on a separate line.(ó®¾åùÿÿÿÿ8©·ŠÈ/
-{
-java:S1104"^Make recentlyUsedChoice a static final constant or non-public and provide accessors if needed.(Î§¸8ª¯Ñö/
-p
-java:S1192Ä"MDefine a constant instead of duplicating this literal "zoomOutStyle" 3 times.(’¹¸’şÿÿÿÿ8®¿›Æ/
-m
-java:S1192Å"ODefine a constant instead of duplicating this literal "zoomSheetStyle" 3 times.(‚¯ûâ8ÛÌªÆ/
-x
-java:S1104"VMake separator4 a static final constant or non-public and provide accessors if needed.(ó®¾åùÿÿÿÿ8©·ŠÈ/
-Ÿ
-java:S1186®"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Œê±¡8™é‹Å/
-G
-java:S1659"%Declare "printId" on a separate line.(÷£ßûÿÿÿÿ8ª¯Ñö/
-u
-java:S1104"SMake pauseId a static final constant or non-public and provide accessors if needed.(ˆêµ¾ûÿÿÿÿ8ª¯Ñö/
-m
-java:S1192¼"JDefine a constant instead of duplicating this literal "undoStyle" 3 times.(şº–ıÿÿÿÿ8¯›şÅ/
-¤
-java:S1186õ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ÃœÆüÿÿÿÿ8±²Á/
-u
-java:S1104"SMake printId a static final constant or non-public and provide accessors if needed.(÷£ßûÿÿÿÿ8ª¯Ñö/
-Ÿ
-java:S1186İ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ş§©Œ8©˜±Á/
-Ÿ
-java:S1186û"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ªÀ†ô8‡á²Á/
-¤
-java:S1186Ú"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ÄÏËæûÿÿÿÿ8¨ü°Á/
-E
-java:S1604n"(Make this anonymous inner class a lambda(¤–ÒÉ8ª¯Ñö/
-¤
-java:S1186“"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(³ˆ»îøÿÿÿÿ8Ü¬´Á/
-v
-java:S1104"TMake zoomInId a static final constant or non-public and provide accessors if needed.(ˆêµ¾ûÿÿÿÿ8ª¯Ñö/
-s
-java:S1192¾"PDefine a constant instead of duplicating this literal "componentsStyle" 3 times.(ïşÈşÿÿÿÿ8ñ²”Æ/
-x
-java:S1104"VMake separator3 a static final constant or non-public and provide accessors if needed.(ó®¾åùÿÿÿÿ8©·ŠÈ/
-m
-java:S1192º"JDefine a constant instead of duplicating this literal "saveStyle" 3 times.(®Ë¯ñøÿÿÿÿ8ş˜üÅ/
-J
-java:S1659"(Declare "separator8" on a separate line.(ó®¾åùÿÿÿÿ8©·ŠÈ/
+java:S1604†"(Make this anonymous inner class a lambda(¤–ÒÉ8†áïœ‚/
+n
+java:S1192¼"KDefine a constant instead of duplicating this literal "pauseStyle" 3 times.(éÊ±¯úÿÿÿÿ8ã³–Æ/
+O
+java:S1128"-Remove this unused import 'javafx.fxml.FXML'.(ÃÚ¢„şÿÿÿÿ8ª¯Ñö/
 I
 java:S1659"'Declare "zoomOutId" on a separate line.(ˆêµ¾ûÿÿÿÿ8ª¯Ñö/
-x
-java:S1104"VMake separator7 a static final constant or non-public and provide accessors if needed.(ó®¾åùÿÿÿÿ8©·ŠÈ/
-L
-java:S1128
-"/Remove this unused import 'javafx.scene.Scene'.(Õü²8ª¯Ñö/
-¤
-java:S1186ã"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(‰«ÙŠùÿÿÿÿ8¿¼±Á/
-Ÿ
-java:S1186ì"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ËÙè´8ë²Á/
-¤
-java:S1186Ñ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(³Õµşÿÿÿÿ8¾¤°Á/
+t
+java:S1104"RMake redoId a static final constant or non-public and provide accessors if needed.(÷£ßûÿÿÿÿ8ª¯Ñö/
 
-java:S1186œ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(òëß 8¯´·Á/
-Ÿ
-java:S1186¨"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ûÎ¨ì8ú“¸Á/
-j
-java:S1192Ã"LDefine a constant instead of duplicating this literal "zoomInStyle" 3 times.(ÒÔóº8÷ÁšÆ/
+java:S1186ô"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(éÅïG8†áïœ‚/
 w
 java:S1104"UMake optionsId a static final constant or non-public and provide accessors if needed.(ˆêµ¾ûÿÿÿÿ8ª¯Ñö/
 ¤
-java:S1186Î"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ìÂ‡¾úÿÿÿÿ8ì×¯Á/
-m
-java:S1192Á"JDefine a constant instead of duplicating this literal "stopStyle" 3 times.(ıÊÎ¶ùÿÿÿÿ8˜—Æ/
-n
-java:S1192]"QDefine a constant instead of duplicating this literal "standardNotStyle" 3 times.(—Ã×ï8ª¯Ñö/
-K
-java:S1659")Declare "zoomSheetId" on a separate line.(ˆêµ¾ûÿÿÿÿ8ª¯Ñö/
-F
-java:S1659#")Declare "connectingY" on a separate line.(¹¢‚è8ª¯Ñö/
-Ÿ
-java:S1186ï"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¦Ï¦×8±²Á/
-¤
-java:S1186Ë"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ÁĞ“®üÿÿÿÿ8Íö‘Å/
-t
-java:S1104"RMake openId a static final constant or non-public and provide accessors if needed.(÷£ßûÿÿÿÿ8ª¯Ñö/
-t
-java:S1104"RMake stopId a static final constant or non-public and provide accessors if needed.(ˆêµ¾ûÿÿÿÿ8ª¯Ñö/
-H
-java:S1659"&Declare "zoomInId" on a separate line.(ˆêµ¾ûÿÿÿÿ8ª¯Ñö/
-k	java:S100¥"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(½¥Ü’8ñÕ·Ã/
-¤
-java:S1186¢"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¦³§¾şÿÿÿÿ8ƒ×·Á/
+java:S1186ß"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(‰«ÙŠùÿÿÿÿ8†áïœ‚/
 J
-java:S1659"(Declare "separator7" on a separate line.(ó®¾åùÿÿÿÿ8©·ŠÈ/
-¤
-java:S1186æ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ù„•éÿÿÿÿÿ8Äë±Á/
-¤
-java:S1186‡"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(—Øåşûÿÿÿÿ8·³Á/
-t
-java:S1104"RMake undoId a static final constant or non-public and provide accessors if needed.(÷£ßûÿÿÿÿ8ª¯Ñö/
+java:S1659"(Declare "separator6" on a separate line.(ó®¾åùÿÿÿÿ8©·ŠÈ/
+]	java:S125~"<This block of commented-out lines of code should be removed.(æ°óìøÿÿÿÿ8¯¹âœ‚/
+W
+java:S2864¶"4Iterate over the "entrySet" instead of the "keySet".(¹Ğ˜ùÿÿÿÿ8†áïœ‚/
+F
+java:S1659"$Declare "stopId" on a separate line.(ˆêµ¾ûÿÿÿÿ8ª¯Ñö/
 
-java:S1186–"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Íó±8Ü¬´Á/
-j
-java:S1192¯"LDefine a constant instead of duplicating this literal "outputStyle" 3 times.(µ³‰8ª¯Ñö/
+java:S1186*"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(”‹ö˜8öÚíÀ/
+¤
+java:S1186ñ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ÃœÆüÿÿÿÿ8†áïœ‚/
 r
-java:S1192Ç"ODefine a constant instead of duplicating this literal "separatorStyle" 8 times.(ÏÓƒüÿÿÿÿ8şÉÈ/
-Ÿ
-java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ù´¶·8·³Á/
-¤
-java:S1186é"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(‡‡”¤úÿÿÿÿ8ë²Á/
-h
-java:S1192¿"JDefine a constant instead of duplicating this literal "playStyle" 3 times.(õ°Òƒ8¾¶•Æ/
-J
-java:S1659"(Declare "separator3" on a separate line.(ó®¾åùÿÿÿÿ8©·ŠÈ/
-F
-java:S1659"$Declare "undoId" on a separate line.(÷£ßûÿÿÿÿ8ª¯Ñö/
-O
-java:S1128"-Remove this unused import 'javafx.fxml.FXML'.(ÃÚ¢„şÿÿÿÿ8ª¯Ñö/
-t
-java:S1104"RMake redoId a static final constant or non-public and provide accessors if needed.(÷£ßûÿÿÿÿ8ª¯Ñö/
-n
-java:S1192À"KDefine a constant instead of duplicating this literal "pauseStyle" 3 times.(éÊ±¯úÿÿÿÿ8ã³–Æ/
-h
-java:S1192½"JDefine a constant instead of duplicating this literal "redoStyle" 3 times.(¥âæÔ8Ôœ€Æ/
-Ÿ
-java:S1186ò"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ÎıÈ‘8±²Á/
+java:S1192Ã"ODefine a constant instead of duplicating this literal "separatorStyle" 8 times.(ÏÓƒüÿÿÿÿ8†áïœ‚/
 
-java:S1186à"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¨¼¼m8¨«±Á/
-z
-java:S1104"XMake componentsId a static final constant or non-public and provide accessors if needed.(÷£ßûÿÿÿÿ8ª¯Ñö/
-¤
-java:S1186«"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ãœ€ºşÿÿÿÿ8ú“¸Á/
-J
-java:S1659"(Declare "separator4" on a separate line.(ó®¾åùÿÿÿÿ8©·ŠÈ/
-
-java:S1186ø"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(éÅïG8‡á²Á/
-E
-java:S16041"(Make this anonymous inner class a lambda(®‡†³8ª¯Ñö/
-g
-java:S1192¸"IDefine a constant instead of duplicating this literal "newStyle" 3 times.(Œœ«8ÎàøÅ/
+java:S1186˜"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(òëß 8†áïœ‚/
 F
-java:S1659"$Declare "playId" on a separate line.(ˆêµ¾ûÿÿÿÿ8ª¯Ñö/
-I
-java:S1659"'Declare "optionsId" on a separate line.(ˆêµ¾ûÿÿÿÿ8ª¯Ñö/
-Ÿ
-java:S1186¥"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(½¥Ü’8ú“¸Á/
-J
-java:S1659"(Declare "separator5" on a separate line.(ó®¾åùÿÿÿÿ8©·ŠÈ/
+java:S1604å"(Make this anonymous inner class a lambda(¤–ÒÉ8†áïœ‚/
 T
 java:S1128"7Remove this unused import 'javafx.scene.input.KeyCode'.(ûÊ¢¶8ª¯Ñö/
-o
-java:S1104"RMake paneId a static final constant or non-public and provide accessors if needed.(Ÿ’ˆ”8ª¯Ñö/
+j
+java:S1192¿"LDefine a constant instead of duplicating this literal "zoomInStyle" 3 times.(ÒÔóº8÷ÁšÆ/
+Ÿ
+java:S1186­"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(É“8†áïœ‚/
+J
+java:S1659"(Declare "separator7" on a separate line.(ó®¾åùÿÿÿÿ8©·ŠÈ/
+s
+java:S1192º"PDefine a constant instead of duplicating this literal "componentsStyle" 3 times.(ïşÈşÿÿÿÿ8ñ²”Æ/
+q
+java:S1192³"NDefine a constant instead of duplicating this literal "constantStyle" 6 times.(Î ğàúÿÿÿÿ8†áïœ‚/
 x
 java:S1104"VMake separator2 a static final constant or non-public and provide accessors if needed.(ó®¾åùÿÿÿÿ8©·ŠÈ/
 Ÿ
-java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(úğ“8±ô³Á/
+java:S1186€"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Üéº¢8†áïœ‚/
+J
+java:S1659"(Declare "separator4" on a separate line.(ó®¾åùÿÿÿÿ8©·ŠÈ/
+m
+java:S1192½"JDefine a constant instead of duplicating this literal "stopStyle" 3 times.(ıÊÎ¶ùÿÿÿÿ8˜—Æ/
+Ÿ
+java:S1186è"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ËÙè´8†áïœ‚/
+g
+java:S1192´"IDefine a constant instead of duplicating this literal "newStyle" 3 times.(Œœ«8ÌŸà‚/
 ¤
-java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(‘«öïùÿÿÿÿ8±ô³Á/
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(³ˆ»îøÿÿÿÿ8†áïœ‚/
+¤
+java:S1186•"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(˜‚ÿÿÿÿÿ8†áïœ‚/
+¤
+java:S1186§"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ãœ€ºşÿÿÿÿ8†áïœ‚/
+J
+java:S1659"(Declare "separator8" on a separate line.(ó®¾åùÿÿÿÿ8©·ŠÈ/
+¤
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¦³§¾şÿÿÿÿ8†áïœ‚/
 L
 java:S1659"*Declare "componentsId" on a separate line.(÷£ßûÿÿÿÿ8ª¯Ñö/
 ¤
-java:S1186×"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(—Éïûÿÿÿÿ8Ôä°Á/
+java:S1186ƒ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(—Øåşûÿÿÿÿ8†áïœ‚/
+¤
+java:S1186Í"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(³Õµşÿÿÿÿ8†áïœ‚/
+^	java:S125œ"<This block of commented-out lines of code should be removed.(¯¡˜ãúÿÿÿÿ8†áïœ‚/
+¤
+java:S1186Ê"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ìÂ‡¾úÿÿÿÿ8†áïœ‚/
 F
-java:S1604Ÿ"(Make this anonymous inner class a lambda(¤–ÒÉ8ª¯Ñö/
+java:S1659"$Declare "undoId" on a separate line.(÷£ßûÿÿÿÿ8ª¯Ñö/
+^	java:S125"<This block of commented-out lines of code should be removed.(¯¡˜ãúÿÿÿÿ8Ó‰‚œ‚/
 x
-java:S1104"VMake separator1 a static final constant or non-public and provide accessors if needed.(ó®¾åùÿÿÿÿ8©·ŠÈ/
+java:S1104"VMake separator3 a static final constant or non-public and provide accessors if needed.(ó®¾åùÿÿÿÿ8©·ŠÈ/
+x
+java:S1104"VMake separator4 a static final constant or non-public and provide accessors if needed.(ó®¾åùÿÿÿÿ8©·ŠÈ/
+x
+java:S1104"VMake separator7 a static final constant or non-public and provide accessors if needed.(ó®¾åùÿÿÿÿ8©·ŠÈ/
+M
+java:S1066¿"/Merge this if statement with the enclosing one.(†ò§Ş8†áïœ‚/
+Ÿ
+java:S1186Ğ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ÁĞÊÊ8†áïœ‚/
+L
+java:S1128
+"/Remove this unused import 'javafx.scene.Scene'.(Õü²8ª¯Ñö/
+x
+java:S1104"VMake separator6 a static final constant or non-public and provide accessors if needed.(ó®¾åùÿÿÿÿ8©·ŠÈ/
+Ÿ
+java:S1186¡"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(½¥Ü’8†áïœ‚/
+u
+java:S1104"SMake pauseId a static final constant or non-public and provide accessors if needed.(ˆêµ¾ûÿÿÿÿ8ª¯Ñö/
+Ÿ
+java:S1186ı"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ù´¶·8†áïœ‚/
+v
+java:S1192¾"SDefine a constant instead of duplicating this literal "constantStyleHover" 4 times.(õ´‡Úøÿÿÿÿ8†áïœ‚/
 p
-java:S1192Â"MDefine a constant instead of duplicating this literal "optionsStyle" 3 times.(ííñšøÿÿÿÿ8óĞ˜Æ/
+java:S1192À"MDefine a constant instead of duplicating this literal "zoomOutStyle" 3 times.(’¹¸’şÿÿÿÿ8õÏ‚/
+
+java:S1186Ü"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¨¼¼m8†áïœ‚/
+v
+java:S1104"TMake zoomInId a static final constant or non-public and provide accessors if needed.(ˆêµ¾ûÿÿÿÿ8ª¯Ñö/
+I
+java:S1659"'Declare "optionsId" on a separate line.(ˆêµ¾ûÿÿÿÿ8ª¯Ñö/
+h
+java:S1192¹"JDefine a constant instead of duplicating this literal "redoStyle" 3 times.(¥âæÔ8Ôœ€Æ/
+F
+java:S1659"$Declare "redoId" on a separate line.(÷£ßûÿÿÿÿ8ª¯Ñö/
+J
+java:S1659"(Declare "separator5" on a separate line.(ó®¾åùÿÿÿÿ8©·ŠÈ/
+j
+java:S1192õ"LDefine a constant instead of duplicating this literal "outputStyle" 3 times.(µ³‰8†áïœ‚/
+F
+java:S1659"$Declare "saveId" on a separate line.(÷£ßûÿÿÿÿ8ª¯Ñö/
+W
+java:S2864Œ"4Iterate over the "entrySet" instead of the "keySet".(¹Ğ˜ùÿÿÿÿ8Ÿœ›œ‚/
+x
+java:S1104"VMake separator5 a static final constant or non-public and provide accessors if needed.(ó®¾åùÿÿÿÿ8©·ŠÈ/
+o
+java:S3776b"RRefactor this method to reduce its Cognitive Complexity from 24 to the 15 allowed.(ÅóÉ°8Íã€‚/
+y
+java:S1104"WMake zoomSheetId a static final constant or non-public and provide accessors if needed.(ˆêµ¾ûÿÿÿÿ8ª¯Ñö/
+Ÿ
+java:S1186ª"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Œê±¡8†áïœ‚/
+t
+java:S1104"RMake saveId a static final constant or non-public and provide accessors if needed.(÷£ßûÿÿÿÿ8ª¯Ñö/
+t
+java:S1104"RMake openId a static final constant or non-public and provide accessors if needed.(÷£ßûÿÿÿÿ8ª¯Ñö/
+¤
+java:S1186°"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Å£–ûÿÿÿÿ8†áïœ‚/
+F
+java:S1659"$Declare "openId" on a separate line.(÷£ßûÿÿÿÿ8ª¯Ñö/
+w
+java:S1104"UMake zoomOutId a static final constant or non-public and provide accessors if needed.(ˆêµ¾ûÿÿÿÿ8ª¯Ñö/
+m
+java:S1192¸"JDefine a constant instead of duplicating this literal "undoStyle" 3 times.(şº–ıÿÿÿÿ8¯›şÅ/
+M
+java:S5411¥"*Use the primitive boolean expression here.(‡§ÆÎıÿÿÿÿ8†áïœ‚/
+J
+java:S1659"(Declare "separator3" on a separate line.(ó®¾åùÿÿÿÿ8©·ŠÈ/
+¤
+java:S1186Ö"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ÄÏËæûÿÿÿÿ8†áïœ‚/
+z
+java:S1104"XMake componentsId a static final constant or non-public and provide accessors if needed.(÷£ßûÿÿÿÿ8ª¯Ñö/
+Ÿ
+java:S1186î"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ÎıÈ‘8†áïœ‚/
+¤
+java:S1186›"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(à†óÂúÿÿÿÿ8†áïœ‚/
+W
+java:S2864½"4Iterate over the "entrySet" instead of the "keySet".(ìë»ˆıÿÿÿÿ8†áïœ‚/
+F
+java:S1659#")Declare "connectingY" on a separate line.(¹¢‚è8ª¯Ñö/
+o
+java:S1104"RMake paneId a static final constant or non-public and provide accessors if needed.(Ÿ’ˆ”8ª¯Ñö/
+¤
+java:S1186Ç"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ÁĞ“®üÿÿÿÿ8†áïœ‚/
+G
+java:S1659"%Declare "printId" on a separate line.(÷£ßûÿÿÿÿ8ª¯Ñö/
+W
+java:S2864š"4Iterate over the "entrySet" instead of the "keySet".(¹Ğ˜ùÿÿÿÿ8†áïœ‚/
+¤
+java:S1186Ó"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(—Éïûÿÿÿÿ8†áïœ‚/
+i
+java:S1192·"KDefine a constant instead of duplicating this literal "printStyle" 3 times.(éó«•8È¡ıÅ/
 t
 java:S1104"RMake playId a static final constant or non-public and provide accessors if needed.(ˆêµ¾ûÿÿÿÿ8ª¯Ñö/
+Ÿ
+java:S1186÷"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ªÀ†ô8†áïœ‚/
 ¤
-java:S1186Ÿ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(à†óÂúÿÿÿÿ8ƒ×·Á/
-
-java:S1104&"]Make currentlyPickedLC a static final constant or non-public and provide accessors if needed.(Á—¶ûúÿÿÿÿ8ª¯Ñö/
-M
-java:S5411¼"*Use the primitive boolean expression here.(‡§ÆÎıÿÿÿÿ8“»Øö/
+java:S1186†"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(öÃºßşÿÿÿÿ8†áïœ‚/
+t
+java:S1104"RMake stopId a static final constant or non-public and provide accessors if needed.(ˆêµ¾ûÿÿÿÿ8ª¯Ñö/
+E
+java:S1604x"(Make this anonymous inner class a lambda(¤–ÒÉ8ª¯Ñö/
+¤
+java:S1186Œ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(‘«öïùÿÿÿÿ8†áïœ‚/
+F
+java:S1659"$Declare "playId" on a separate line.(ˆêµ¾ûÿÿÿÿ8ª¯Ñö/
+n
+java:S1192g"QDefine a constant instead of duplicating this literal "standardNotStyle" 3 times.(—Ã×ï8ª¯Ñö/
+F
+java:S1604Ä"(Make this anonymous inner class a lambda(¤–ÒÉ8†áïœ‚/

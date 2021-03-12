@@ -19,3 +19,7 @@ Z
 *src/ba/unsa/etf/digital/circuits/Main.java,8\9\89d7f05b9a91755d1f88e6a633fe6aa6321bf238
 j
 :src/ba/unsa/etf/digital/circuits/MainWindowController.java,5\9\597011c3e4aa68c28e5be9510bfcb73b980a3526
+b
+2src/ba/unsa/etf/digital/circuits/ConstantGate.java,1\b\1b8d4de7e1435f3d69aaa5030795eafbf14069df
+9
+	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
