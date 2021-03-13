@@ -5,22 +5,15 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Separator;
-import javafx.scene.input.KeyCode;
+import javafx.geometry.Side;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class MainWindowController implements Initializable {
 
@@ -35,7 +28,11 @@ public class MainWindowController implements Initializable {
     private double connectingX, connectingY;
     private Map<Button, LogicCircuit> logicCircuitMap = new HashMap<>();
     private Map<LogicCircuit, LogicCircuit> allConnections = new HashMap<>();
-    private Map<LogicCircuit, Line> allConnectionLines = new HashMap<>();
+    private Map<LogicCircuit, ArrayList<Line>> allConnectionLines = new HashMap<>();
+    private Map<LogicCircuit, Line>  allOutputConnectionLines = new HashMap<>();
+
+    final ContextMenu contextMenu = new ContextMenu();
+    private int overrideInputChoice = 0;
 
     public LogicCircuit currentlyPickedLC;
 
@@ -57,6 +54,7 @@ public class MainWindowController implements Initializable {
 
         setIconStyles();
         setSeparatorStyles();
+        setInputOverrideContextMenu();
     }
 
     private ArrayList<LogicCircuit> createStandardGates() {
@@ -79,6 +77,9 @@ public class MainWindowController implements Initializable {
         NotGate not = new NotGate("Not1 [Standard]",1,1, notArray);
         retValues.add(not);
 
+        AndGate and = new AndGate("And2 [Standard]", 2, 1);
+        retValues.add(and);
+
         return retValues;
     }
 
@@ -92,6 +93,7 @@ public class MainWindowController implements Initializable {
                     drawConstantGateLow(actionEvent);
             }
             else if(currentlyPickedLC.getClass().equals(Output.class)) drawOutputGate(actionEvent);
+            else if(currentlyPickedLC.getClass().equals(AndGate.class)) drawStandardAndGate(actionEvent);
         }
     }
 
@@ -127,7 +129,7 @@ public class MainWindowController implements Initializable {
                         boolean del = false;
                         for( LogicCircuit l: allConnections.keySet()) {
                             if(l.equals(connectingElement)) {
-                                paneId.getChildren().remove(allConnectionLines.get(allConnections.get(l)));
+                                paneId.getChildren().remove(allConnectionLines.get(allConnections.get(l)).get(0));
                                 allConnectionLines.remove(allConnections.get(l));
                                 p = l;
                                 del = true;
@@ -137,7 +139,8 @@ public class MainWindowController implements Initializable {
 
 
                         if(allConnections.containsValue(logicCircuitMap.get(b))) {
-                            paneId.getChildren().remove(allConnectionLines.get(logicCircuitMap.get(b)));
+                            if(allConnectionLines.get(logicCircuitMap.get(b)) != null)
+                                paneId.getChildren().remove(allConnectionLines.get(logicCircuitMap.get(b)).get(0));
                             allConnectionLines.remove(logicCircuitMap.get(b));
 
                             for(LogicCircuit l: allConnections.keySet()) {
@@ -159,7 +162,9 @@ public class MainWindowController implements Initializable {
                         line.setEndY(connectingY);
                         line.setOpacity(1);
                         paneId.getChildren().add(line);
-                        allConnectionLines.put(logicCircuitMap.get(b), line);
+                        ArrayList<Line> pL = new ArrayList<>();
+                        pL.add(line);
+                        allConnectionLines.put(logicCircuitMap.get(b), pL);
                         updateAll();
                         updateAll();
                     }
@@ -172,6 +177,172 @@ public class MainWindowController implements Initializable {
             }
         });
         paneId.getChildren().add(b);
+    }
+
+    private Button bAnd = new Button();
+    private MouseEvent actionEventAnd;
+
+    private void drawStandardAndGate(MouseEvent actionEvent) {
+        actionEventAnd = actionEvent;
+        Button b = new Button();
+        b.setLayoutX(actionEvent.getX()-32);
+        b.setLayoutY(actionEvent.getY()-17);
+        b.setPrefSize(65,34);
+        b.getStyleClass().add("standardAndStyle");
+
+        int cnt = 1;
+        for (LogicCircuit l: logicCircuitMap.values())
+            if (l.getClass().equals(AndGate.class)) cnt++;
+        String name = "and" + cnt;
+        AndGate andGate = new AndGate(name,2,1);
+        logicCircuitMap.put(b, andGate);
+
+        b.setOnMouseEntered(e-> {
+            b.getStyleClass().remove("standardAndStyle");
+            b.getStyleClass().add("standardAndStyleHover");
+        });
+        b.setOnMouseExited(e-> {
+            b.getStyleClass().remove("standardAndStyleHover");
+            b.getStyleClass().add("standardAndStyle");
+        });
+        b.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                if(connecting) {
+                    if(connectingElement != logicCircuitMap.get(b)) {
+                        LogicCircuit p = allConnections.get(0);
+
+                        boolean del = false;
+                        for( LogicCircuit l: allConnections.keySet()) {
+                            if(l.equals(connectingElement)) {
+                                paneId.getChildren().remove(allConnectionLines.get(allConnections.get(l)).get(0));
+                                allConnectionLines.remove(allConnections.get(l));
+                                p = l;
+                                del = true;
+                            }
+                        }
+                        if(del) allConnections.remove(p);
+
+                        int numberOfUsedInputs = 0;
+                        for(LogicCircuit l: allConnections.values())
+                            if(l.equals(logicCircuitMap.get(b))) numberOfUsedInputs++;
+
+                        if(numberOfUsedInputs == logicCircuitMap.get(b).getNumberOfInputs()) {
+                            bAnd = b;
+                            contextMenu.show(b, Side.BOTTOM, 0, 0);
+                        }
+                        else {
+                            allConnections.put(connectingElement, logicCircuitMap.get(b));
+
+                            logicCircuitMap.get(b).setInputs(connectingElement.getOutputs());
+                            connecting = false;
+                            logicCircuitMap.get(b).operation(logicCircuitMap.get(b).getInputs());
+
+                            Line line = new Line();
+                            if(allConnectionLines.get(logicCircuitMap.get(b)) == null) line = drawAndFirstInput();
+                            else line = drawAndSecondInput();
+
+                            ArrayList<Line> pL = new ArrayList<>();
+                            if(allConnectionLines.get(logicCircuitMap.get(b)) != null)
+                                pL = allConnectionLines.get(logicCircuitMap.get(b));
+                            pL.add(line);
+                            allConnectionLines.put(logicCircuitMap.get(b), pL);
+                            allOutputConnectionLines.put(connectingElement, line);
+                            updateAll();
+                            updateAll();
+                        }
+                    }
+                } else {
+                    connecting = true;
+                    connectingElement = andGate;
+                    connectingX = actionEvent.getX()+32;
+                    connectingY = actionEvent.getY();
+                }
+            }
+        });
+        paneId.getChildren().add(b);
+    }
+
+    private void setInputOverrideContextMenu() {
+        MenuItem item1 = new MenuItem("Override Input 1");
+        item1.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+                LogicCircuit p = allConnections.get(0);
+
+                for(LogicCircuit l: allConnections.keySet()) {
+                    if(allConnectionLines.get(allConnections.get(l)) != null && allOutputConnectionLines.get(l) != null)
+                        if(allOutputConnectionLines.get(l).equals(allConnectionLines.get(allConnections.get(l)).get(0)))
+                            p = l;
+                }
+                paneId.getChildren().remove(allConnectionLines.get(logicCircuitMap.get(bAnd)).get(0));
+                allConnections.remove(p);
+                allOutputConnectionLines.remove(p);
+
+                allConnections.put(connectingElement, logicCircuitMap.get(bAnd));
+
+                logicCircuitMap.get(bAnd).setInputs(connectingElement.getOutputs());
+                connecting = false;
+                logicCircuitMap.get(bAnd).operation(logicCircuitMap.get(bAnd).getInputs());
+
+                Line line = drawAndFirstInput();
+
+                allConnectionLines.get(logicCircuitMap.get(bAnd)).set(0,line);
+                allOutputConnectionLines.put(connectingElement, line);
+                updateAll();
+                updateAll();
+            }
+        });
+        MenuItem item2 = new MenuItem("Override Input 2");
+        item2.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+                LogicCircuit p = allConnections.get(0);
+                int cnt = 0;
+
+                for(LogicCircuit l: allConnections.keySet()) {
+                    if(allConnectionLines.get(allConnections.get(l)) != null && allOutputConnectionLines.get(l) != null)
+                        if(allOutputConnectionLines.get(l).equals(allConnectionLines.get(allConnections.get(l)).get(1)))
+                            p = l;
+                }
+                paneId.getChildren().remove(allConnectionLines.get(logicCircuitMap.get(bAnd)).get(1));
+                allConnections.remove(p);
+                allOutputConnectionLines.remove(p);
+
+                allConnections.put(connectingElement, logicCircuitMap.get(bAnd));
+
+                logicCircuitMap.get(bAnd).setInputs(connectingElement.getOutputs());
+                connecting = false;
+                logicCircuitMap.get(bAnd).operation(logicCircuitMap.get(bAnd).getInputs());
+
+                Line line = drawAndSecondInput();
+
+                allConnectionLines.get(logicCircuitMap.get(bAnd)).set(1,line);
+                allOutputConnectionLines.put(connectingElement, line);
+                updateAll();
+                updateAll();
+            }
+        });
+        contextMenu.getItems().addAll(item1, item2);
+    }
+
+    private Line drawAndFirstInput() {
+        Line line = new Line();
+        line.setStartX(actionEventAnd.getX() - 32);
+        line.setStartY(actionEventAnd.getY() - 8);
+        line.setEndX(connectingX);
+        line.setEndY(connectingY);
+        line.setOpacity(1);
+        paneId.getChildren().add(line);
+        return line;
+    }
+
+    private Line drawAndSecondInput() {
+        Line line = new Line();
+        line.setStartX(actionEventAnd.getX() - 32);
+        line.setStartY(actionEventAnd.getY() + 8);
+        line.setEndX(connectingX);
+        line.setEndY(connectingY);
+        line.setOpacity(1);
+        paneId.getChildren().add(line);
+        return line;
     }
 
     private void drawConstantGateHigh(MouseEvent actionEvent) {
@@ -272,7 +443,7 @@ public class MainWindowController implements Initializable {
                     boolean del = false;
                     for( LogicCircuit l: allConnections.keySet()) {
                         if(l.equals(connectingElement)) {
-                            paneId.getChildren().remove(allConnectionLines.get(allConnections.get(l)));
+                            paneId.getChildren().remove(allConnectionLines.get(allConnections.get(l)).get(0));
                             allConnectionLines.remove(allConnections.get(l));
                             p = l;
                             del = true;
@@ -281,7 +452,7 @@ public class MainWindowController implements Initializable {
                     if(del) allConnections.remove(p);
 
                     if(allConnections.containsValue(logicCircuitMap.get(b))) {
-                        paneId.getChildren().remove(allConnectionLines.get(logicCircuitMap.get(b)));
+                        paneId.getChildren().remove(allConnectionLines.get(logicCircuitMap.get(b)).get(0));
                         allConnectionLines.remove(logicCircuitMap.get(b));
 
                         for(LogicCircuit l: allConnections.keySet()) {
@@ -301,7 +472,9 @@ public class MainWindowController implements Initializable {
                     line.setEndY(connectingY);
                     line.setOpacity(1);
                     paneId.getChildren().add(line);
-                    allConnectionLines.put(logicCircuitMap.get(b), line);
+                    ArrayList<Line> pL = new ArrayList<>();
+                    pL.add(line);
+                    allConnectionLines.put(logicCircuitMap.get(b), pL);
                     updateAll();
                     updateAll();
                 }
