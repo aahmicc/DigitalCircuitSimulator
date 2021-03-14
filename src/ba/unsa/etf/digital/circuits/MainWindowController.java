@@ -364,10 +364,6 @@ public class MainWindowController implements Initializable {
         paneId.getChildren().add(b);
     }
 
-    private void standard2InputGatesAlgorithm() {
-
-    }
-
     private void setInputOverrideContextMenu() {
         MenuItem item1 = new MenuItem("Override Input 1");
         item1.setOnAction(new EventHandler<ActionEvent>() {
@@ -461,15 +457,16 @@ public class MainWindowController implements Initializable {
         int cnt = 1;
         for (LogicCircuit l: logicCircuitMap.values())
             if (l.getClass().equals(ConstantGate.class)) cnt++;
-        String name = "Input" + cnt;
+        String name = "constant" + cnt;
         ConstantGate constantGate = new ConstantGate(name,1,1,true);
         logicCircuitMap.put(b, constantGate);
 
         Label l = new Label();
         l.setText(name);
-        l.setLayoutX(actionEvent.getX()-15);
+        l.setLayoutX(actionEvent.getX()-23);
         l.setLayoutY(actionEvent.getY()+12);
         paneId.getChildren().add(l);
+
 
         b.setOnMouseEntered(e-> {
             b.getStyleClass().remove("constantStyle");
@@ -500,13 +497,13 @@ public class MainWindowController implements Initializable {
         int cnt = 1;
         for (LogicCircuit l: logicCircuitMap.values())
             if (l.getClass().equals(ConstantGate.class)) cnt++;
-        String name = "Input" + cnt;
+        String name = "constant" + cnt;
         ConstantGate constantGate = new ConstantGate(name,1,1,false);
         logicCircuitMap.put(b, constantGate);
 
         Label l = new Label();
         l.setText(name);
-        l.setLayoutX(actionEvent.getX()-15);
+        l.setLayoutX(actionEvent.getX()-23);
         l.setLayoutY(actionEvent.getY()+12);
         paneId.getChildren().add(l);
 
@@ -539,7 +536,7 @@ public class MainWindowController implements Initializable {
         int cnt = 1;
         for (LogicCircuit l: logicCircuitMap.values())
             if (l.getClass().equals(Output.class)) cnt++;
-        String name = "Output" + cnt;
+        String name = "output" + cnt;
         Output output = new Output(name);
         logicCircuitMap.put(b, output);
 
