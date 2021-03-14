@@ -80,6 +80,9 @@ public class MainWindowController implements Initializable {
         AndGate and = new AndGate("And2 [Standard]", 2, 1);
         retValues.add(and);
 
+        OrGate or = new OrGate("Or2 [Standard]",2,1);
+        retValues.add(or);
+
         return retValues;
     }
 
@@ -94,6 +97,7 @@ public class MainWindowController implements Initializable {
             }
             else if(currentlyPickedLC.getClass().equals(Output.class)) drawOutputGate(actionEvent);
             else if(currentlyPickedLC.getClass().equals(AndGate.class)) drawStandardAndGate(actionEvent);
+            else if(currentlyPickedLC.getClass().equals(OrGate.class)) drawStandardOrGate(actionEvent);
         }
     }
 
@@ -107,9 +111,15 @@ public class MainWindowController implements Initializable {
         int cnt = 1;
         for (LogicCircuit l: logicCircuitMap.values())
             if (l.getClass().equals(NotGate.class)) cnt++;
-        String name = "not" + cnt;
+        String name = "Not" + cnt;
         NotGate notGate = new NotGate(name,1,1);
         logicCircuitMap.put(b, notGate);
+
+        Label l = new Label();
+        l.setText(name);
+        l.setLayoutX(actionEvent.getX()-15);
+        l.setLayoutY(actionEvent.getY()+20);
+        paneId.getChildren().add(l);
 
         b.setOnMouseEntered(e-> {
             b.getStyleClass().remove("standardNotStyle");
@@ -193,9 +203,15 @@ public class MainWindowController implements Initializable {
         int cnt = 1;
         for (LogicCircuit l: logicCircuitMap.values())
             if (l.getClass().equals(AndGate.class)) cnt++;
-        String name = "and" + cnt;
+        String name = "And" + cnt;
         AndGate andGate = new AndGate(name,2,1);
         logicCircuitMap.put(b, andGate);
+
+        Label l = new Label();
+        l.setText(name);
+        l.setLayoutX(actionEvent.getX()-15);
+        l.setLayoutY(actionEvent.getY()+20);
+        paneId.getChildren().add(l);
 
         b.setOnMouseEntered(e-> {
             b.getStyleClass().remove("standardAndStyle");
@@ -260,6 +276,96 @@ public class MainWindowController implements Initializable {
             }
         });
         paneId.getChildren().add(b);
+    }
+
+    private void drawStandardOrGate(MouseEvent actionEvent) {
+        actionEventAnd = actionEvent;
+        Button b = new Button();
+        b.setLayoutX(actionEvent.getX()-32);
+        b.setLayoutY(actionEvent.getY()-17);
+        b.setPrefSize(65,34);
+        b.getStyleClass().add("standardOrStyle");
+
+        int cnt = 1;
+        for (LogicCircuit l: logicCircuitMap.values())
+            if (l.getClass().equals(OrGate.class)) cnt++;
+        String name = "Or" + cnt;
+        OrGate orGate = new OrGate(name,2,1);
+        logicCircuitMap.put(b, orGate);
+
+        Label l = new Label();
+        l.setText(name);
+        l.setLayoutX(actionEvent.getX()-15);
+        l.setLayoutY(actionEvent.getY()+20);
+        paneId.getChildren().add(l);
+
+        b.setOnMouseEntered(e-> {
+            b.getStyleClass().remove("standardOrStyle");
+            b.getStyleClass().add("standardOrStyleHover");
+        });
+        b.setOnMouseExited(e-> {
+            b.getStyleClass().remove("standardOrStyleHover");
+            b.getStyleClass().add("standardOrStyle");
+        });
+        b.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                if(connecting) {
+                    if(connectingElement != logicCircuitMap.get(b)) {
+                        LogicCircuit p = allConnections.get(0);
+
+                        boolean del = false;
+                        for( LogicCircuit l: allConnections.keySet()) {
+                            if(l.equals(connectingElement)) {
+                                paneId.getChildren().remove(allConnectionLines.get(allConnections.get(l)).get(0));
+                                allConnectionLines.remove(allConnections.get(l));
+                                p = l;
+                                del = true;
+                            }
+                        }
+                        if(del) allConnections.remove(p);
+
+                        int numberOfUsedInputs = 0;
+                        for(LogicCircuit l: allConnections.values())
+                            if(l.equals(logicCircuitMap.get(b))) numberOfUsedInputs++;
+
+                        if(numberOfUsedInputs == logicCircuitMap.get(b).getNumberOfInputs()) {
+                            bAnd = b;
+                            contextMenu.show(b, Side.BOTTOM, 0, 0);
+                        }
+                        else {
+                            allConnections.put(connectingElement, logicCircuitMap.get(b));
+
+                            logicCircuitMap.get(b).setInputs(connectingElement.getOutputs());
+                            connecting = false;
+                            logicCircuitMap.get(b).operation(logicCircuitMap.get(b).getInputs());
+
+                            Line line = new Line();
+                            if(allConnectionLines.get(logicCircuitMap.get(b)) == null) line = drawAndFirstInput();
+                            else line = drawAndSecondInput();
+
+                            ArrayList<Line> pL = new ArrayList<>();
+                            if(allConnectionLines.get(logicCircuitMap.get(b)) != null)
+                                pL = allConnectionLines.get(logicCircuitMap.get(b));
+                            pL.add(line);
+                            allConnectionLines.put(logicCircuitMap.get(b), pL);
+                            allOutputConnectionLines.put(connectingElement, line);
+                            updateAll();
+                            updateAll();
+                        }
+                    }
+                } else {
+                    connecting = true;
+                    connectingElement = orGate;
+                    connectingX = actionEvent.getX()+32;
+                    connectingY = actionEvent.getY();
+                }
+            }
+        });
+        paneId.getChildren().add(b);
+    }
+
+    private void standard2InputGatesAlgorithm() {
+
     }
 
     private void setInputOverrideContextMenu() {
@@ -355,9 +461,15 @@ public class MainWindowController implements Initializable {
         int cnt = 1;
         for (LogicCircuit l: logicCircuitMap.values())
             if (l.getClass().equals(ConstantGate.class)) cnt++;
-        String name = "constant" + cnt;
+        String name = "Input" + cnt;
         ConstantGate constantGate = new ConstantGate(name,1,1,true);
         logicCircuitMap.put(b, constantGate);
+
+        Label l = new Label();
+        l.setText(name);
+        l.setLayoutX(actionEvent.getX()-15);
+        l.setLayoutY(actionEvent.getY()+12);
+        paneId.getChildren().add(l);
 
         b.setOnMouseEntered(e-> {
             b.getStyleClass().remove("constantStyle");
@@ -388,9 +500,15 @@ public class MainWindowController implements Initializable {
         int cnt = 1;
         for (LogicCircuit l: logicCircuitMap.values())
             if (l.getClass().equals(ConstantGate.class)) cnt++;
-        String name = "constant" + cnt;
+        String name = "Input" + cnt;
         ConstantGate constantGate = new ConstantGate(name,1,1,false);
         logicCircuitMap.put(b, constantGate);
+
+        Label l = new Label();
+        l.setText(name);
+        l.setLayoutX(actionEvent.getX()-15);
+        l.setLayoutY(actionEvent.getY()+12);
+        paneId.getChildren().add(l);
 
         b.setOnMouseEntered(e-> {
             b.getStyleClass().remove("constantStyle");
@@ -421,9 +539,15 @@ public class MainWindowController implements Initializable {
         int cnt = 1;
         for (LogicCircuit l: logicCircuitMap.values())
             if (l.getClass().equals(Output.class)) cnt++;
-        String name = "output" + cnt;
+        String name = "Output" + cnt;
         Output output = new Output(name);
         logicCircuitMap.put(b, output);
+
+        Label l = new Label();
+        l.setText(name);
+        l.setLayoutX(actionEvent.getX()-22);
+        l.setLayoutY(actionEvent.getY()+12);
+        paneId.getChildren().add(l);
 
         b.setOnMouseEntered(e-> {
             b.getStyleClass().remove("outputStyle");
