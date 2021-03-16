@@ -111,7 +111,7 @@ public class MainWindowController implements Initializable {
         int cnt = 1;
         for (LogicCircuit l: logicCircuitMap.values())
             if (l.getClass().equals(NotGate.class)) cnt++;
-        String name = "Not" + cnt;
+        String name = "not" + cnt;
         NotGate notGate = new NotGate(name,1,1);
         logicCircuitMap.put(b, notGate);
 
@@ -133,7 +133,7 @@ public class MainWindowController implements Initializable {
             @Override public void handle(ActionEvent e) {
                 if(connecting) {
                     if(connectingElement != logicCircuitMap.get(b)) {
-                        LogicCircuit p = allConnections.get(0);
+                        LogicCircuit p = new None();
                         Line line = new Line();
 
                         boolean del = false;
@@ -203,7 +203,7 @@ public class MainWindowController implements Initializable {
         int cnt = 1;
         for (LogicCircuit l: logicCircuitMap.values())
             if (l.getClass().equals(AndGate.class)) cnt++;
-        String name = "And" + cnt;
+        String name = "and" + cnt;
         AndGate andGate = new AndGate(name,2,1);
         logicCircuitMap.put(b, andGate);
 
@@ -223,9 +223,10 @@ public class MainWindowController implements Initializable {
         });
         b.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
+                actionEventAnd = actionEvent;
                 if(connecting) {
                     if(connectingElement != logicCircuitMap.get(b)) {
-                        LogicCircuit p = allConnections.get(0);
+                        LogicCircuit p = new None();
 
                         boolean del = false;
                         for( LogicCircuit l: allConnections.keySet()) {
@@ -289,7 +290,7 @@ public class MainWindowController implements Initializable {
         int cnt = 1;
         for (LogicCircuit l: logicCircuitMap.values())
             if (l.getClass().equals(OrGate.class)) cnt++;
-        String name = "Or" + cnt;
+        String name = "or" + cnt;
         OrGate orGate = new OrGate(name,2,1);
         logicCircuitMap.put(b, orGate);
 
@@ -309,9 +310,10 @@ public class MainWindowController implements Initializable {
         });
         b.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
+                actionEventAnd = actionEvent;
                 if(connecting) {
                     if(connectingElement != logicCircuitMap.get(b)) {
-                        LogicCircuit p = allConnections.get(0);
+                        LogicCircuit p = new None();
 
                         boolean del = false;
                         for( LogicCircuit l: allConnections.keySet()) {
@@ -609,6 +611,7 @@ public class MainWindowController implements Initializable {
             l.operation(l.getInputs());
             allConnections.get(l).setInputs(l.getOutputs());
             updateButtons(allConnections.get(l));
+            System.out.println(l.getName() + " " + allConnections.get(l).getName());
         }
     }
 

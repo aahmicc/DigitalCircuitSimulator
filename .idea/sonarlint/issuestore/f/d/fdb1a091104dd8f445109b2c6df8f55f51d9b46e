@@ -1,29 +1,29 @@
 
 “
 java:S1319"qThe type of the "inputs" object should be an interface such as "List" rather than the implementation "ArrayList".(Š«ú‘ÿÿÿÿÿ8¥óÕ‚/
-
-java:S1319"qThe type of the "inputs" object should be an interface such as "List" rather than the implementation "ArrayList".(ÒœØ—8¥óÕ‚/
-
-java:S1319P"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(üŒ¨è8¢‰…É/
-”
-java:S1319T"rThe type of the "outputs" object should be an interface such as "List" rather than the implementation "ArrayList".(û‹ı¿øÿÿÿÿ8¢‰…É/
-[
-java:S5993&"9Change the visibility of this constructor to "protected".(Œ­¤¦úÿÿÿÿ8¥óÕ‚/
+“
+java:S1319L"qThe type of the "inputs" object should be an interface such as "List" rather than the implementation "ArrayList".(”ØÚ§şÿÿÿÿ8¢‰…É/
 [
 java:S5993"9Change the visibility of this constructor to "protected".(Ùê°Íøÿÿÿÿ8¥óÕ‚/
 [
 java:S5993*"9Change the visibility of this constructor to "protected".(¼¸¤¼ÿÿÿÿÿ8¥óÕ‚/
-[
-java:S5993"9Change the visibility of this constructor to "protected".(Š«ú‘ÿÿÿÿÿ8¥óÕ‚/
-’
-java:S1319H"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(Ç°Ì†şÿÿÿÿ8¢‰…É/
-V
-java:S5993"9Change the visibility of this constructor to "protected".(ñı˜Ì8¥óÕ‚/
-=
-java:S2129" Remove this "String" constructor(Š­ı¡8œÔ„É/
-
-java:S1319"qThe type of the "inputs" object should be an interface such as "List" rather than the implementation "ArrayList".(ñı˜Ì8¥óÕ‚/
 
 java:S1319"rThe type of the "outputs" object should be an interface such as "List" rather than the implementation "ArrayList".(ñı˜Ì8¥óÕ‚/
-“
-java:S1319L"qThe type of the "inputs" object should be an interface such as "List" rather than the implementation "ArrayList".(”ØÚ§şÿÿÿÿ8¢‰…É/
+=
+java:S2129" Remove this "String" constructor(Š­ı¡8œÔ„É/
+”
+java:S1319T"rThe type of the "outputs" object should be an interface such as "List" rather than the implementation "ArrayList".(û‹ı¿øÿÿÿÿ8¢‰…É/
+
+java:S1319"qThe type of the "inputs" object should be an interface such as "List" rather than the implementation "ArrayList".(ÒœØ—8¥óÕ‚/
+
+java:S1319"qThe type of the "inputs" object should be an interface such as "List" rather than the implementation "ArrayList".(ñı˜Ì8¥óÕ‚/
+
+java:S1319P"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(üŒ¨è8¢‰…É/
+V
+java:S5993"9Change the visibility of this constructor to "protected".(ñı˜Ì8¥óÕ‚/
+[
+java:S5993"9Change the visibility of this constructor to "protected".(Š«ú‘ÿÿÿÿÿ8¥óÕ‚/
+[
+java:S5993&"9Change the visibility of this constructor to "protected".(Œ­¤¦úÿÿÿÿ8¥óÕ‚/
+’
+java:S1319H"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(Ç°Ì†şÿÿÿÿ8¢‰…É/
