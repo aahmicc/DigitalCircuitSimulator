@@ -14,6 +14,9 @@ public class ConstantGate extends LogicCircuit {
     public ConstantGate(String name, int numberOfInputs, int numberOfOutputs, boolean con) {
         super(name, numberOfInputs, numberOfOutputs);
         this.con = con;
+        ArrayList<Boolean> p = new ArrayList<Boolean>();
+        p.add(con);
+        setInputs(p);
         operation(getInputs());
     }
 

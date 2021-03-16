@@ -6,7 +6,7 @@ public class NotGate extends LogicCircuit {
 
     @Override
     public void operation(ArrayList<Boolean> inputs) {
-        boolean op = !inputs.get(0);
+        boolean op = !inputs.get(inputs.size()-1);
         ArrayList<Boolean> p = new ArrayList<Boolean>();
         p.add(op);
         setOutputs(p);

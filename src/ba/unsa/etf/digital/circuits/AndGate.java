@@ -6,7 +6,10 @@ public class AndGate extends LogicCircuit {
     @Override
     public void operation(ArrayList<Boolean> inputs) {
         boolean op = true;
-        for(Boolean i: inputs) if(!i) op = false;
+        int x = 2;
+        if(inputs.size() == 1) x = 1;
+        for(int i = inputs.size()-x; i < inputs.size(); i++)
+            if(!inputs.get(i)) op = false;
 
         ArrayList<Boolean> p = new ArrayList<Boolean>();
         p.add(op);

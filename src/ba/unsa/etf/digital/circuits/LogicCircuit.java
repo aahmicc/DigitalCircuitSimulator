@@ -3,7 +3,7 @@ package ba.unsa.etf.digital.circuits;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public abstract class LogicCircuit {
+public abstract class LogicCircuit{
 
     private String name;
     private int numberOfInputs;
