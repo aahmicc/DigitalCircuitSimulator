@@ -27,15 +27,11 @@ public class MainWindowController implements Initializable {
     private LogicCircuit connectingElement = null;
     private double connectingX, connectingY;
     private Map<Button, LogicCircuit> logicCircuitMap = new HashMap<>();
-    private Map<LogicCircuit, LogicCircuit> allConnections = new HashMap<>();
-    private Map<LogicCircuit, ArrayList<Line>> allConnectionLines = new HashMap<>();
-    private Map<LogicCircuit, Line>  allOutputConnectionLines = new HashMap<>();
 
     private ArrayList<Triples> allConns = new ArrayList<>();
     private HashMap<Line, Integer> allLines = new HashMap<>();
 
     final ContextMenu contextMenu = new ContextMenu();
-    private int overrideInputChoice = 0;
 
     public LogicCircuit currentlyPickedLC;
 
