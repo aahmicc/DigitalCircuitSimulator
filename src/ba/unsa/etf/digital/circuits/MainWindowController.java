@@ -8,14 +8,18 @@ import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.geometry.Side;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 
+import java.awt.*;
 import java.net.URL;
 import java.util.*;
 
-public class MainWindowController implements Initializable {
+public class MainWindowController extends Component implements Initializable{
 
     public Button newId, openId, saveId, printId, undoId, redoId, componentsId;
     public Button pauseId, zoomOutId, zoomSheetId, playId, stopId, optionsId, zoomInId;
@@ -82,6 +86,18 @@ public class MainWindowController implements Initializable {
         OrGate or = new OrGate("Or2 [Standard]",2,1);
         retValues.add(or);
 
+        NandGate nand = new NandGate("Nand2 [Standard]",2,1);
+        retValues.add(nand);
+
+        NorGate nor = new NorGate("Nor2 [Standard]",2,1);
+        retValues.add(nor);
+
+        XorGate xor = new XorGate("Xor2 [Standard]",2,1);
+        retValues.add(xor);
+
+        XnorGate xnor = new XnorGate("Xnor2 [Standard]",2,1);
+        retValues.add(xnor);
+
         return retValues;
     }
 
@@ -97,6 +113,10 @@ public class MainWindowController implements Initializable {
             else if(currentlyPickedLC.getClass().equals(Output.class)) drawOutputGate(actionEvent);
             else if(currentlyPickedLC.getClass().equals(AndGate.class)) drawStandardAndGate(actionEvent);
             else if(currentlyPickedLC.getClass().equals(OrGate.class)) drawStandardOrGate(actionEvent);
+            else if(currentlyPickedLC.getClass().equals(NandGate.class)) drawStandardNandGate(actionEvent);
+            else if(currentlyPickedLC.getClass().equals(NorGate.class)) drawStandardNorGate(actionEvent);
+            else if(currentlyPickedLC.getClass().equals(XorGate.class)) drawStandardXorGate(actionEvent);
+            else if(currentlyPickedLC.getClass().equals(XnorGate.class)) drawStandardXnorGate(actionEvent);
         }
     }
 
@@ -230,6 +250,51 @@ public class MainWindowController implements Initializable {
         paneId.getChildren().add(b);
     }
 
+    private void drawStandardNandGate(MouseEvent actionEvent) {
+        actionEventAnd = actionEvent;
+        Button b = new Button();
+        b.setLayoutX(actionEvent.getX()-32);
+        b.setLayoutY(actionEvent.getY()-17);
+        b.setPrefSize(65,34);
+        b.getStyleClass().add("standardNandStyle");
+
+        int cnt = 1;
+        for (LogicCircuit l: logicCircuitMap.values())
+            if (l.getClass().equals(NandGate.class)) cnt++;
+        String name = "nand" + cnt;
+        NandGate nandGate = new NandGate(name,2,1);
+        logicCircuitMap.put(b, nandGate);
+
+        Label l = new Label();
+        l.setText(name);
+        l.setLayoutX(actionEvent.getX()-15);
+        l.setLayoutY(actionEvent.getY()+20);
+        paneId.getChildren().add(l);
+
+        b.setOnMouseEntered(e-> {
+            b.getStyleClass().remove("standardNandStyle");
+            b.getStyleClass().add("standardNandStyleHover");
+        });
+        b.setOnMouseExited(e-> {
+            b.getStyleClass().remove("standardNandStyleHover");
+            b.getStyleClass().add("standardNandStyle");
+        });
+        b.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                actionEventAnd = actionEvent;
+                if(connecting)
+                    input2Components(b);
+                else {
+                    connecting = true;
+                    connectingElement = nandGate;
+                    connectingX = actionEvent.getX()+32;
+                    connectingY = actionEvent.getY();
+                }
+            }
+        });
+        paneId.getChildren().add(b);
+    }
+
     private void drawStandardOrGate(MouseEvent actionEvent) {
         actionEventAnd = actionEvent;
         Button b = new Button();
@@ -267,6 +332,141 @@ public class MainWindowController implements Initializable {
                 else {
                     connecting = true;
                     connectingElement = orGate;
+                    connectingX = actionEvent.getX()+32;
+                    connectingY = actionEvent.getY();
+                }
+            }
+        });
+        paneId.getChildren().add(b);
+    }
+
+    private void drawStandardNorGate(MouseEvent actionEvent) {
+        actionEventAnd = actionEvent;
+        Button b = new Button();
+        b.setLayoutX(actionEvent.getX()-32);
+        b.setLayoutY(actionEvent.getY()-17);
+        b.setPrefSize(65,34);
+        b.getStyleClass().add("standardNorStyle");
+
+        int cnt = 1;
+        for (LogicCircuit l: logicCircuitMap.values())
+            if (l.getClass().equals(NorGate.class)) cnt++;
+        String name = "nor" + cnt;
+        NorGate norGate = new NorGate(name,2,1);
+        logicCircuitMap.put(b, norGate);
+
+        Label l = new Label();
+        l.setText(name);
+        l.setLayoutX(actionEvent.getX()-15);
+        l.setLayoutY(actionEvent.getY()+20);
+        paneId.getChildren().add(l);
+
+        b.setOnMouseEntered(e-> {
+            b.getStyleClass().remove("standardNorStyle");
+            b.getStyleClass().add("standardNorStyleHover");
+        });
+        b.setOnMouseExited(e-> {
+            b.getStyleClass().remove("standardNorStyleHover");
+            b.getStyleClass().add("standardNorStyle");
+        });
+        b.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                actionEventAnd = actionEvent;
+                if(connecting)
+                    input2Components(b);
+                else {
+                    connecting = true;
+                    connectingElement = norGate;
+                    connectingX = actionEvent.getX()+32;
+                    connectingY = actionEvent.getY();
+                }
+            }
+        });
+        paneId.getChildren().add(b);
+    }
+
+    private void drawStandardXorGate(MouseEvent actionEvent) {
+        actionEventAnd = actionEvent;
+        Button b = new Button();
+        b.setLayoutX(actionEvent.getX()-32);
+        b.setLayoutY(actionEvent.getY()-17);
+        b.setPrefSize(65,34);
+        b.getStyleClass().add("standardXorStyle");
+
+        int cnt = 1;
+        for (LogicCircuit l: logicCircuitMap.values())
+            if (l.getClass().equals(XorGate.class)) cnt++;
+        String name = "xor" + cnt;
+        XorGate xorGate = new XorGate(name,2,1);
+        logicCircuitMap.put(b, xorGate);
+
+        Label l = new Label();
+        l.setText(name);
+        l.setLayoutX(actionEvent.getX()-15);
+        l.setLayoutY(actionEvent.getY()+20);
+        paneId.getChildren().add(l);
+
+        b.setOnMouseEntered(e-> {
+            b.getStyleClass().remove("standardXorStyle");
+            b.getStyleClass().add("standardXorStyleHover");
+        });
+        b.setOnMouseExited(e-> {
+            b.getStyleClass().remove("standardXorStyleHover");
+            b.getStyleClass().add("standardXorStyle");
+        });
+        b.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                actionEventAnd = actionEvent;
+                if(connecting)
+                    input2Components(b);
+                else {
+                    connecting = true;
+                    connectingElement = xorGate;
+                    connectingX = actionEvent.getX()+32;
+                    connectingY = actionEvent.getY();
+                }
+            }
+        });
+        paneId.getChildren().add(b);
+    }
+
+    private void drawStandardXnorGate(MouseEvent actionEvent) {
+        actionEventAnd = actionEvent;
+        Button b = new Button();
+        b.setLayoutX(actionEvent.getX()-32);
+        b.setLayoutY(actionEvent.getY()-17);
+        b.setPrefSize(65,34);
+        b.getStyleClass().add("standardXnorStyle");
+
+        int cnt = 1;
+        for (LogicCircuit l: logicCircuitMap.values())
+            if (l.getClass().equals(XnorGate.class)) cnt++;
+        String name = "xnor" + cnt;
+        XnorGate xnorGate = new XnorGate(name,2,1);
+        logicCircuitMap.put(b, xnorGate);
+
+        Label l = new Label();
+        l.setText(name);
+        l.setLayoutX(actionEvent.getX()-15);
+        l.setLayoutY(actionEvent.getY()+20);
+        paneId.getChildren().add(l);
+
+        b.setOnMouseEntered(e-> {
+            b.getStyleClass().remove("standardXnorStyle");
+            b.getStyleClass().add("standardXnorStyleHover");
+        });
+        b.setOnMouseExited(e-> {
+            b.getStyleClass().remove("standardXnorStyleHover");
+            b.getStyleClass().add("standardXnorStyle");
+        });
+        b.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                actionEventAnd = actionEvent;
+                if(connecting)
+                    input2Components(b);
+                else {
+                    connecting = true;
+                    connectingElement = xnorGate;
                     connectingX = actionEvent.getX()+32;
                     connectingY = actionEvent.getY();
                 }

@@ -29,3 +29,5 @@ S
 #.idea/sonarlint/issuestore/index.pb,9\f\9fe84ebb15faf917b7def6236dba604453cc61e0
 Z
 *src/ba/unsa/etf/digital/circuits/None.java,1\2\12e71914c099f63e9c91619ab81af08645c1429b
+]
+-src/ba/unsa/etf/digital/circuits/Triples.java,7\1\7111315d6e2196d52483d854a0205073482c4f24

@@ -1,7 +1,9 @@
 
-Œ
-java:S1319	"qThe type of the "inputs" object should be an interface such as "List" rather than the implementation "ArrayList".(¯äªåıÿÿÿÿ
+v
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(ÄÁ§ô8–ÂİÙƒ/
 M
 java:S2160"+Override the "equals" method in this class.(ùÉ»üÿÿÿÿ8¥´…›‚/
+Œ
+java:S1319	"qThe type of the "inputs" object should be an interface such as "List" rather than the implementation "ArrayList".(¯äªåıÿÿÿÿ
 v
-java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(ÄÁ§ô8ŸÖšƒ/
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(ÄÁ§ô8ŸÖšƒ/

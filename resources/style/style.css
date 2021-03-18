@@ -272,6 +272,70 @@
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
+.standardXorStyle{
+    -fx-background-color:transparent;
+    -fx-background-image: url("/standardGateIcons/standardXor.png");
+    -fx-background-size: 65px 34px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+.standardXorStyleHover{
+    -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 5, 4, 3;
+    -fx-background-image: url("/standardGateIcons/standardXor.png");
+    -fx-background-size: 65px 34px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+.standardNandStyle{
+    -fx-background-color:transparent;
+    -fx-background-image: url("/standardGateIcons/standardNand.png");
+    -fx-background-size: 65px 34px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+.standardNandStyleHover{
+    -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 5, 4, 3;
+    -fx-background-image: url("/standardGateIcons/standardNand.png");
+    -fx-background-size: 65px 34px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+.standardNorStyle{
+    -fx-background-color:transparent;
+    -fx-background-image: url("/standardGateIcons/standardNor.png");
+    -fx-background-size: 65px 34px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+.standardNorStyleHover{
+    -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 5, 4, 3;
+    -fx-background-image: url("/standardGateIcons/standardNor.png");
+    -fx-background-size: 65px 34px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+.standardXnorStyle{
+    -fx-background-color:transparent;
+    -fx-background-image: url("/standardGateIcons/standardXnor.png");
+    -fx-background-size: 65px 34px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+.standardXnorStyleHover{
+    -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 5, 4, 3;
+    -fx-background-image: url("/standardGateIcons/standardXnor.png");
+    -fx-background-size: 65px 34px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
 .constantStyle{
     -fx-background-color:transparent;
     -fx-background-image: url("/standardGateIcons/constant.png");
