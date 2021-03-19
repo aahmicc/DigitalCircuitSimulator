@@ -31,3 +31,7 @@ Z
 *src/ba/unsa/etf/digital/circuits/None.java,1\2\12e71914c099f63e9c91619ab81af08645c1429b
 ]
 -src/ba/unsa/etf/digital/circuits/Triples.java,7\1\7111315d6e2196d52483d854a0205073482c4f24
+^
+.src/ba/unsa/etf/digital/circuits/XnorGate.java,7\8\783a095e1fd62a870a67f0323f89148415880b59
+`
+0src/ba/unsa/etf/digital/circuits/CustomGate.java,a\2\a228e4e4142a31aeadb12a671f211486226016ca

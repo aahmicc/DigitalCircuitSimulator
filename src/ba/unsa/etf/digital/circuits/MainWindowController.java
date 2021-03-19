@@ -13,7 +13,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 
 import java.awt.*;
 import java.net.URL;
@@ -26,14 +28,19 @@ public class MainWindowController extends Component implements Initializable{
     public Separator separator1,separator2,separator3,separator4,separator5,separator6,separator7,separator8;
     public ChoiceBox<LogicCircuit> recentlyUsedChoice;
     public Pane paneId;
+    private Rectangle rectangle = new Rectangle();
 
     private boolean connecting = false;
     private LogicCircuit connectingElement = null;
     private double connectingX, connectingY;
-    private Map<Button, LogicCircuit> logicCircuitMap = new HashMap<>();
 
+    private HashMap<Button, LogicCircuit> logicCircuitMap = new HashMap<>();
     private ArrayList<Triples> allConns = new ArrayList<>();
     private HashMap<Line, Integer> allLines = new HashMap<>();
+    private HashMap<Button, Label> buttonLabelMap = new HashMap<>();
+
+    private ArrayList<Object> allActions = new ArrayList<>();
+    private ArrayList<Object> allDeletedActions = new ArrayList<>();
 
     final ContextMenu contextMenu = new ContextMenu();
 
@@ -60,10 +67,10 @@ public class MainWindowController extends Component implements Initializable{
         setInputOverrideContextMenu();
     }
 
+    private None n = new None();
     private ArrayList<LogicCircuit> createStandardGates() {
         ArrayList<LogicCircuit> retValues = new ArrayList<>();
 
-        None n = new None();
         retValues.add(n);
 
         ConstantGate conGateH = new ConstantGate("Constant Input [High]", 0, 1, null, true);
@@ -103,20 +110,23 @@ public class MainWindowController extends Component implements Initializable{
 
     public void drawAction(MouseEvent actionEvent) {
         if(currentlyPickedLC != null) {
-            if(currentlyPickedLC.getClass().equals(NotGate.class)) drawStandardNotGate(actionEvent);
-            else if(currentlyPickedLC.getClass().equals(ConstantGate.class)) {
-                if(currentlyPickedLC.getName().equals("Constant Input [High]"))
-                    drawConstantGateHigh(actionEvent);
-                else if(currentlyPickedLC.getName().equals("Constant Input [Low]"))
-                    drawConstantGateLow(actionEvent);
+            if(!connecting) {
+                if (currentlyPickedLC.getClass().equals(NotGate.class)) drawStandardNotGate(actionEvent);
+                else if (currentlyPickedLC.getClass().equals(ConstantGate.class)) {
+                    if (currentlyPickedLC.getName().equals("Constant Input [High]"))
+                        drawConstantGateHigh(actionEvent);
+                    else if (currentlyPickedLC.getName().equals("Constant Input [Low]"))
+                        drawConstantGateLow(actionEvent);
+                } else if (currentlyPickedLC.getClass().equals(Output.class)) drawOutputGate(actionEvent);
+                else if (currentlyPickedLC.getClass().equals(AndGate.class)) drawStandardAndGate(actionEvent);
+                else if (currentlyPickedLC.getClass().equals(OrGate.class)) drawStandardOrGate(actionEvent);
+                else if (currentlyPickedLC.getClass().equals(NandGate.class)) drawStandardNandGate(actionEvent);
+                else if (currentlyPickedLC.getClass().equals(NorGate.class)) drawStandardNorGate(actionEvent);
+                else if (currentlyPickedLC.getClass().equals(XorGate.class)) drawStandardXorGate(actionEvent);
+                else if (currentlyPickedLC.getClass().equals(XnorGate.class)) drawStandardXnorGate(actionEvent);
             }
-            else if(currentlyPickedLC.getClass().equals(Output.class)) drawOutputGate(actionEvent);
-            else if(currentlyPickedLC.getClass().equals(AndGate.class)) drawStandardAndGate(actionEvent);
-            else if(currentlyPickedLC.getClass().equals(OrGate.class)) drawStandardOrGate(actionEvent);
-            else if(currentlyPickedLC.getClass().equals(NandGate.class)) drawStandardNandGate(actionEvent);
-            else if(currentlyPickedLC.getClass().equals(NorGate.class)) drawStandardNorGate(actionEvent);
-            else if(currentlyPickedLC.getClass().equals(XorGate.class)) drawStandardXorGate(actionEvent);
-            else if(currentlyPickedLC.getClass().equals(XnorGate.class)) drawStandardXnorGate(actionEvent);
+            connecting = false;
+            paneId.getChildren().remove(rectangle);
         }
     }
 
@@ -148,10 +158,13 @@ public class MainWindowController extends Component implements Initializable{
             b.getStyleClass().remove("standardNotStyleHover");
             b.getStyleClass().add("standardNotStyle");
         });
+        allActions.add(b);
+        buttonLabelMap.put(b,l);
         b.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 if(connecting) {
                     connecting = false;
+                    paneId.getChildren().remove(rectangle);
                     if(connectingElement != logicCircuitMap.get(b)) {
                         Line line = new Line();
 
@@ -188,6 +201,7 @@ public class MainWindowController extends Component implements Initializable{
 
                         allConns.add(new Triples(connectingElement, line, logicCircuitMap.get(b)));
                         allLines.put(line, allLines.size());
+                        allActions.add(line);
                         updateAll();
                         updateAll();
                     }
@@ -196,6 +210,7 @@ public class MainWindowController extends Component implements Initializable{
                     connectingElement = notGate;
                     connectingX = actionEvent.getX()+35;
                     connectingY = actionEvent.getY()+1;
+                    drawOutlineForStandardGateNot(b);
                 }
             }
         });
@@ -234,16 +249,21 @@ public class MainWindowController extends Component implements Initializable{
             b.getStyleClass().remove("standardAndStyleHover");
             b.getStyleClass().add("standardAndStyle");
         });
+        allActions.add(b);
+        buttonLabelMap.put(b,l);
         b.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 actionEventAnd = actionEvent;
-                if(connecting)
+                if(connecting) {
+                    paneId.getChildren().remove(rectangle);
                     input2Components(b);
+                }
                 else {
                     connecting = true;
                     connectingElement = andGate;
                     connectingX = actionEvent.getX()+32;
                     connectingY = actionEvent.getY();
+                    drawOutlineForStandardGate(b);
                 }
             }
         });
@@ -279,16 +299,21 @@ public class MainWindowController extends Component implements Initializable{
             b.getStyleClass().remove("standardNandStyleHover");
             b.getStyleClass().add("standardNandStyle");
         });
+        allActions.add(b);
+        buttonLabelMap.put(b,l);
         b.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 actionEventAnd = actionEvent;
-                if(connecting)
+                if(connecting) {
+                    paneId.getChildren().remove(rectangle);
                     input2Components(b);
+                }
                 else {
                     connecting = true;
                     connectingElement = nandGate;
                     connectingX = actionEvent.getX()+32;
                     connectingY = actionEvent.getY();
+                    drawOutlineForStandardGate(b);
                 }
             }
         });
@@ -324,16 +349,21 @@ public class MainWindowController extends Component implements Initializable{
             b.getStyleClass().remove("standardOrStyleHover");
             b.getStyleClass().add("standardOrStyle");
         });
+        allActions.add(b);
+        buttonLabelMap.put(b,l);
         b.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 actionEventAnd = actionEvent;
-                if(connecting)
+                if(connecting) {
+                    paneId.getChildren().remove(rectangle);
                     input2Components(b);
+                }
                 else {
                     connecting = true;
                     connectingElement = orGate;
                     connectingX = actionEvent.getX()+32;
                     connectingY = actionEvent.getY();
+                    drawOutlineForStandardGate(b);
                 }
             }
         });
@@ -369,16 +399,21 @@ public class MainWindowController extends Component implements Initializable{
             b.getStyleClass().remove("standardNorStyleHover");
             b.getStyleClass().add("standardNorStyle");
         });
+        allActions.add(b);
+        buttonLabelMap.put(b,l);
         b.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 actionEventAnd = actionEvent;
-                if(connecting)
+                if(connecting) {
+                    paneId.getChildren().remove(rectangle);
                     input2Components(b);
+                }
                 else {
                     connecting = true;
                     connectingElement = norGate;
                     connectingX = actionEvent.getX()+32;
                     connectingY = actionEvent.getY();
+                    drawOutlineForStandardGate(b);
                 }
             }
         });
@@ -414,16 +449,21 @@ public class MainWindowController extends Component implements Initializable{
             b.getStyleClass().remove("standardXorStyleHover");
             b.getStyleClass().add("standardXorStyle");
         });
+        allActions.add(b);
+        buttonLabelMap.put(b,l);
         b.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 actionEventAnd = actionEvent;
-                if(connecting)
+                if(connecting) {
+                    paneId.getChildren().remove(rectangle);
                     input2Components(b);
+                }
                 else {
                     connecting = true;
                     connectingElement = xorGate;
                     connectingX = actionEvent.getX()+32;
                     connectingY = actionEvent.getY();
+                    drawOutlineForStandardGate(b);
                 }
             }
         });
@@ -459,16 +499,21 @@ public class MainWindowController extends Component implements Initializable{
             b.getStyleClass().remove("standardXnorStyleHover");
             b.getStyleClass().add("standardXnorStyle");
         });
+        allActions.add(b);
+        buttonLabelMap.put(b,l);
         b.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 actionEventAnd = actionEvent;
-                if(connecting)
+                if(connecting) {
+                    paneId.getChildren().remove(rectangle);
                     input2Components(b);
+                }
                 else {
                     connecting = true;
                     connectingElement = xnorGate;
                     connectingX = actionEvent.getX()+32;
                     connectingY = actionEvent.getY();
+                    drawOutlineForStandardGate(b);
                 }
             }
         });
@@ -511,7 +556,7 @@ public class MainWindowController extends Component implements Initializable{
                 allConns.add(new Triples(connectingElement, line, logicCircuitMap.get(b)));
 
                 logicCircuitMap.get(b).operation(logicCircuitMap.get(b).getInputs());
-
+                allActions.add(line);
                 updateAll();
                 updateAll();
             }
@@ -613,12 +658,15 @@ public class MainWindowController extends Component implements Initializable{
             b.getStyleClass().remove("constantStyleHover");
             b.getStyleClass().add("constantStyle");
         });
+        allActions.add(b);
+        buttonLabelMap.put(b,l);
         b.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 connecting = true;
                 connectingElement = constantGate;
                 connectingX = actionEvent.getX()+12;
                 connectingY = actionEvent.getY()+1;
+                drawOutlineForInput(b);
             }
         });
         paneId.getChildren().add(b);
@@ -652,12 +700,15 @@ public class MainWindowController extends Component implements Initializable{
             b.getStyleClass().remove("constantStyleHover");
             b.getStyleClass().add("constantStyle");
         });
+        allActions.add(b);
+        buttonLabelMap.put(b,l);
         b.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 connecting = true;
                 connectingElement = constantGate;
                 connectingX = actionEvent.getX()+12;
                 connectingY = actionEvent.getY()+1;
+                drawOutlineForInput(b);
             }
         });
         paneId.getChildren().add(b);
@@ -691,10 +742,13 @@ public class MainWindowController extends Component implements Initializable{
             b.getStyleClass().remove("outputStyleHover");
             b.getStyleClass().add("outputStyle");
         });
+        allActions.add(b);
+        buttonLabelMap.put(b,l);
         b.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 if(connecting) {
                     connecting = false;
+                    paneId.getChildren().remove(rectangle);
 
                     Triples p = new Triples();
                     Line line = new Line();
@@ -729,7 +783,7 @@ public class MainWindowController extends Component implements Initializable{
 
                     allConns.add(new Triples(connectingElement, line, logicCircuitMap.get(b)));
                     allLines.put(line, allLines.size());
-
+                    allActions.add(line);
                     updateAll();
                     updateAll();
                 }
@@ -755,6 +809,46 @@ public class MainWindowController extends Component implements Initializable{
                 }
             }
         }
+    }
+
+
+    private void drawOutlineForStandardGateNot(Button b) {
+        rectangle.setX((int)b.getLayoutX()-10);
+        rectangle.setY((int)b.getLayoutY()-22);
+        rectangle.setWidth(90);
+        rectangle.setHeight(90);
+        rectangle.setFill(Color.TRANSPARENT);
+        rectangle.setStroke(Color.GREY);
+        rectangle.setArcWidth(20);
+        rectangle.setArcHeight(20);
+        rectangle.getStrokeDashArray().addAll(5d,5d);
+        paneId.getChildren().add(rectangle);
+    }
+
+    private void drawOutlineForStandardGate(Button b) {
+        rectangle.setX((int)b.getLayoutX()-12);
+        rectangle.setY((int)b.getLayoutY()-24);
+        rectangle.setWidth(90);
+        rectangle.setHeight(90);
+        rectangle.setFill(Color.TRANSPARENT);
+        rectangle.setStroke(Color.GREY);
+        rectangle.setArcWidth(20);
+        rectangle.setArcHeight(20);
+        rectangle.getStrokeDashArray().addAll(5d,5d);
+        paneId.getChildren().add(rectangle);
+    }
+
+    private void drawOutlineForInput(Button b) {
+        rectangle.setX((int)b.getLayoutX()-17);
+        rectangle.setY((int)b.getLayoutY()-12);
+        rectangle.setWidth(66);
+        rectangle.setHeight(66);
+        rectangle.setFill(Color.TRANSPARENT);
+        rectangle.setStroke(Color.GREY);
+        rectangle.setArcWidth(20);
+        rectangle.setArcHeight(20);
+        rectangle.getStrokeDashArray().addAll(5d,5d);
+        paneId.getChildren().add(rectangle);
     }
 
     public void newAction(ActionEvent actionEvent) {
@@ -784,10 +878,110 @@ public class MainWindowController extends Component implements Initializable{
     public void exitAction(ActionEvent actionEvent) {
     }
 
+    private HashMap<Button, LogicCircuit> logicCircuitMapDel = new HashMap<>();
+    private ArrayList<Triples> allConnsDel = new ArrayList<>();
+    private HashMap<Line, Integer> allLinesDel = new HashMap<>();
+    private HashMap<Button, Label> buttonLabelMapDel = new HashMap<>();
+
     public void undoAction(ActionEvent actionEvent) {
+        if(allActions.get(allActions.size()-1).getClass().equals(Button.class)) {
+            Button b = (Button) allActions.get(allActions.size() - 1);
+            paneId.getChildren().remove(b);
+            paneId.getChildren().remove(buttonLabelMap.get(b));
+
+            buttonLabelMapDel.put(b, buttonLabelMap.get(b));
+            buttonLabelMap.remove(b);
+
+            logicCircuitMapDel.put(b, logicCircuitMap.get(b));
+            logicCircuitMap.remove(b);
+
+            ArrayList<Triples> triplesToRemove = new ArrayList<>();
+            for(Triples t: allConns) {
+                if(t.getFirst().equals(logicCircuitMap.get(b)) || t.getThird().equals(logicCircuitMap.get(b))) {
+                    triplesToRemove.add(t);
+                    allLines.remove(t.getSecond());
+                }
+            }
+            allConnsDel.addAll(triplesToRemove);
+            allConns.removeAll(triplesToRemove);
+
+            allDeletedActions.add(b);
+            allActions.remove(b);
+
+            updateAll(); updateAll();
+        }
+        else if(allActions.get(allActions.size()-1).getClass().equals(Line.class)) {
+            Line l = (Line) allActions.get(allActions.size() - 1);
+            paneId.getChildren().remove(l);
+
+            allLinesDel.put(l,allLines.get(l));
+            allLines.remove(l);
+
+            Triples tripleToRemove = new Triples();
+            for(Triples t: allConns) {
+                if(t.getSecond().equals(l)) {
+                    tripleToRemove = t;
+                    break;
+                }
+            }
+            allConnsDel.add(tripleToRemove);
+            allConns.remove(tripleToRemove);
+
+            allDeletedActions.add(l);
+            allActions.remove(l);
+
+            updateAll(); updateAll();
+        }
     }
 
     public void redoAction(ActionEvent actionEvent) {
+        if(allDeletedActions.get(allDeletedActions.size()-1).getClass().equals(Button.class)) {
+            Button b = (Button) allDeletedActions.get(allDeletedActions.size() - 1);
+            paneId.getChildren().add(b);
+            paneId.getChildren().add(buttonLabelMapDel.get(b));
+
+            buttonLabelMap.put(b, buttonLabelMapDel.get(b));
+            buttonLabelMapDel.remove(b);
+
+            logicCircuitMap.put(b, logicCircuitMapDel.get(b));
+            logicCircuitMapDel.remove(b);
+
+            ArrayList<Triples> triplesToRemove = new ArrayList<>();
+            for(Triples t: allConnsDel) {
+                if(t.getFirst().equals(logicCircuitMapDel.get(b)) || t.getThird().equals(logicCircuitMapDel.get(b))) {
+                    triplesToRemove.add(t);
+                    allLines.put(t.getSecond(), allLines.size());
+                }
+            }
+            allConns.addAll(triplesToRemove);
+            allConnsDel.removeAll(triplesToRemove);
+
+
+            allActions.add(b);
+            allDeletedActions.remove(b);
+            updateAll(); updateAll();
+        }
+        else if(allDeletedActions.get(allDeletedActions.size()-1).getClass().equals(Line.class)) {
+            Line l = (Line) allDeletedActions.get(allDeletedActions.size() - 1);
+            paneId.getChildren().add(l);
+
+            allLines.put(l, allLinesDel.get(l));
+            allLinesDel.remove(l);
+
+            Triples tripleToRemove = new Triples();
+            for(Triples t: allConnsDel) {
+                if(t.getSecond().equals(l)) {
+                    tripleToRemove = t;
+                    break;
+                }
+            }
+            allConns.add(tripleToRemove);
+            allConnsDel.remove(tripleToRemove);
+
+            allActions.add(l);
+            allDeletedActions.remove(l);
+            updateAll(); updateAll();
+        }
     }
 
     public void cutAction(ActionEvent actionEvent) {
