@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<GridPane prefHeight="600.0" prefWidth="800.0" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="335.0" minWidth="10.0" prefWidth="167.0" />
+    <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints fillHeight="false" vgrow="NEVER" />
+    <RowConstraints vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="304.0" minHeight="205.0" prefHeight="304.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="195.0" minHeight="96.0" prefHeight="96.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <HBox spacing="5.0" GridPane.columnSpan="2" GridPane.hgrow="NEVER" GridPane.vgrow="NEVER">
+         <children>
+            <Button fx:id="newId" maxHeight="22.0" maxWidth="22.0" minHeight="22.0" minWidth="22.0" mnemonicParsing="false" onAction="#newAction" prefHeight="22.0" prefWidth="22.0" scaleX="0.0" scaleY="0.0" scaleZ="0.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></Button>
+            <Button fx:id="openId" maxHeight="22.0" maxWidth="22.0" minHeight="22.0" minWidth="22.0" mnemonicParsing="false" onAction="#openAction" prefHeight="22.0" prefWidth="22.0" scaleX="0.0" scaleY="0.0" scaleZ="0.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></Button>
+            <Button fx:id="saveId" maxHeight="22.0" maxWidth="22.0" minHeight="22.0" minWidth="22.0" mnemonicParsing="false" onAction="#saveAction" prefHeight="22.0" prefWidth="22.0" scaleX="0.0" scaleY="0.0" scaleZ="0.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></Button>
+            <Separator fx:id="separator2" orientation="VERTICAL" scaleX="0.0" scaleY="0.0" scaleZ="0.0" stylesheets="@../style/style.css" />
+            <Button fx:id="printId" maxHeight="22.0" maxWidth="22.0" minHeight="22.0" minWidth="22.0" mnemonicParsing="false" onAction="#printAction" prefHeight="22.0" prefWidth="22.0" scaleX="0.0" scaleY="0.0" scaleZ="0.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></Button>
+            <Separator fx:id="separator3" orientation="VERTICAL" scaleX="0.0" scaleY="0.0" scaleZ="0.0" stylesheets="@../style/style.css" />
+            <Button fx:id="undoId" maxHeight="22.0" maxWidth="22.0" minHeight="22.0" minWidth="22.0" mnemonicParsing="false" onAction="#undoAction" prefHeight="22.0" prefWidth="22.0" scaleX="0.0" scaleY="0.0" scaleZ="0.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></Button>
+            <Button fx:id="redoId" maxHeight="22.0" maxWidth="22.0" minHeight="22.0" minWidth="22.0" mnemonicParsing="false" onAction="#redoAction" prefHeight="22.0" prefWidth="22.0" scaleX="0.0" scaleY="0.0" scaleZ="0.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></Button>
+            <Separator fx:id="separator4" orientation="VERTICAL" scaleX="0.0" scaleY="0.0" scaleZ="0.0" stylesheets="@../style/style.css" />
+            <Button fx:id="componentsId" maxHeight="22.0" maxWidth="22.0" minHeight="22.0" minWidth="22.0" mnemonicParsing="false" onAction="#componentAction" prefHeight="22.0" prefWidth="22.0" scaleX="0.0" scaleY="0.0" scaleZ="0.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></Button>
+            <Separator fx:id="separator5" orientation="VERTICAL" scaleX="0.0" scaleY="0.0" scaleZ="0.0" stylesheets="@../style/style.css" />
+            <Button fx:id="playId" maxHeight="22.0" maxWidth="22.0" minHeight="22.0" minWidth="22.0" mnemonicParsing="false" onAction="#playAction" prefHeight="22.0" prefWidth="22.0" scaleX="0.0" scaleY="0.0" scaleZ="0.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></Button>
+            <Button fx:id="pauseId" maxHeight="22.0" maxWidth="22.0" minHeight="22.0" minWidth="22.0" mnemonicParsing="false" onAction="#pauseAction" prefHeight="22.0" prefWidth="22.0" scaleX="0.0" scaleY="0.0" scaleZ="0.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></Button>
+            <Button fx:id="stopId" maxHeight="22.0" maxWidth="22.0" minHeight="22.0" minWidth="22.0" mnemonicParsing="false" onAction="#stopAction" prefHeight="22.0" prefWidth="22.0" scaleX="0.0" scaleY="0.0" scaleZ="0.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></Button>
+            <Separator fx:id="separator6" orientation="VERTICAL" scaleX="0.0" scaleY="0.0" scaleZ="0.0" stylesheets="@../style/style.css" />
+            <Button fx:id="optionsId" maxHeight="22.0" maxWidth="22.0" minHeight="22.0" minWidth="22.0" mnemonicParsing="false" onAction="#globalOptionsAction" prefHeight="22.0" prefWidth="22.0" scaleX="0.0" scaleY="0.0" scaleZ="0.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></Button>
+            <Separator fx:id="separator7" orientation="VERTICAL" scaleX="0.0" scaleY="0.0" scaleZ="0.0" stylesheets="@../style/style.css" />
+            <Button fx:id="zoomInId" maxHeight="22.0" maxWidth="22.0" minHeight="22.0" minWidth="22.0" mnemonicParsing="false" onAction="#zoomInAction" prefHeight="22.0" prefWidth="22.0" scaleX="0.0" scaleY="0.0" scaleZ="0.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></Button>
+            <Button fx:id="zoomOutId" layoutX="406.0" layoutY="10.0" maxHeight="22.0" maxWidth="22.0" minHeight="22.0" minWidth="22.0" mnemonicParsing="false" onAction="#zoomOutAction" prefHeight="22.0" prefWidth="22.0" scaleX="0.0" scaleY="0.0" scaleZ="0.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></Button>
+            <Button fx:id="zoomSheetId" layoutX="442.0" layoutY="10.0" maxHeight="22.0" maxWidth="22.0" minHeight="22.0" minWidth="22.0" mnemonicParsing="false" onAction="#zoomSheetAction" prefHeight="22.0" prefWidth="22.0" scaleX="0.0" scaleY="0.0" scaleZ="0.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></Button>
+         </children>
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
+         <padding>
+            <Insets bottom="5.0" left="15.0" top="5.0" />
+         </padding>
+      </HBox>
+      <Separator fx:id="separator8" prefWidth="200.0" stylesheets="@../style/style.css" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.valignment="TOP">
+         <effect>
+            <Blend mode="MULTIPLY" />
+         </effect></Separator>
+      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
+         <children>
+            <Label>
+               <padding>
+                  <Insets left="5.0" top="5.0" />
+               </padding>
+            </Label>
+            <Label>
+               <padding>
+                  <Insets left="15.0" />
+               </padding>
+            </Label>
+         </children>
+      </VBox>
+      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
+         <children>
+            <Separator fx:id="separator81" prefWidth="200.0" stylesheets="@../style/style.css" valignment="TOP">
+               <effect>
+                  <Blend mode="MULTIPLY" />
+               </effect>
+            </Separator>
+            <Label text="Basic:">
+               <padding>
+                  <Insets left="5.0" top="5.0" />
+               </padding>
+            </Label>
+            <ChoiceBox fx:id="recentlyUsedChoice" prefWidth="150.0">
+               <VBox.margin>
+                  <Insets left="5.0" top="5.0" />
+               </VBox.margin>
+            </ChoiceBox>
+         </children>
+      </VBox>
+      <TextArea prefHeight="200.0" prefWidth="200.0" text="Compiler/Console informations" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+      <Separator fx:id="separator1" orientation="VERTICAL" prefHeight="200.0" stylesheets="@../style/style.css" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
+         <effect>
+            <Blend mode="MULTIPLY">
+               <topInput>
+                  <Blend />
+               </topInput>
+            </Blend>
+         </effect>
+      </Separator>
+      <Pane fx:id="paneId" onMouseClicked="#drawAction" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2" />
+   </children>
+</GridPane>

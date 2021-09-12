@@ -255,6 +255,11 @@
                   <Insets left="5.0" top="5.0" />
                </padding>
             </Label>
+            <Button fx:id="createCustomGateId" mnemonicParsing="false" prefWidth="150.0" text="Create Custom Gate">
+               <VBox.margin>
+                  <Insets left="5.0" />
+               </VBox.margin>
+            </Button>
             <ChoiceBox fx:id="recentlyUsedChoice" prefWidth="150.0">
                <VBox.margin>
                   <Insets left="5.0" top="5.0" />

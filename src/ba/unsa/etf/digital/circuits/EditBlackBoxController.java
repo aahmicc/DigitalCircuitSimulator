@@ -10,37 +10,34 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Side;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.ResourceBundle;
 
 import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
 
-public class MainWindowController extends Component implements Initializable{
+public class EditBlackBoxController extends Component implements Initializable{
 
     public Button newId, openId, saveId, printId, undoId, redoId, componentsId;
     public Button pauseId, zoomOutId, zoomSheetId, playId, stopId, optionsId, zoomInId;
     public Separator separator1,separator2,separator3,separator4,separator5,separator6,separator7,separator8;
     public ChoiceBox<LogicCircuit> recentlyUsedChoice;
     public Pane paneId;
-    public Button createCustomGateId;
     private Rectangle rectangle = new Rectangle();
 
     private boolean connecting = false;
@@ -63,7 +60,10 @@ public class MainWindowController extends Component implements Initializable{
 
     private ContextMenu contextMenuEditBlackBox = new ContextMenu();
 
-    public MainWindowController() {
+
+    public Button editBlackBoxInput1, editBlackBoxInput2, editBlackBoxOutput;
+
+    public EditBlackBoxController() {
     }
 
     @Override
@@ -83,22 +83,10 @@ public class MainWindowController extends Component implements Initializable{
         setSeparatorStyles();
         setInputOverrideContextMenu();
 
-        createCustomGateId.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
-                try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/EditBlackBox.fxml"));
-                    EditBlackBoxController ctrl = new EditBlackBoxController();
-                    loader.setController(ctrl);
-                    Parent root = loader.load();
-                    Stage stg = new Stage();
-                    stg.setTitle("Custom Gate");
-                    stg.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-                    stg.show();
-                } catch (IOException e2) {
-                    e2.printStackTrace();
-                }
-            }
-        });
+        drawConstantGateHigh(20, 151);
+        drawConstantGateHigh(20, 273);
+        drawOutputGate(546,200);
+
     }
 
     private None n = new None();
@@ -114,7 +102,7 @@ public class MainWindowController extends Component implements Initializable{
         retValues.add(conGateL);
 
         Output output = new Output("Output");
-        retValues.add(output);
+        //retValues.add(output);
 
         ArrayList<Boolean> notArray = new ArrayList<>();
         notArray.add(false);
@@ -590,18 +578,20 @@ public class MainWindowController extends Component implements Initializable{
         b.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.SECONDARY)
             {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/EditBlackBox.fxml"));
+                EditBlackBoxController ctrl = new EditBlackBoxController();
+                loader.setController(ctrl);
+                Parent root = null;
                 try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/EditBlackBox.fxml"));
-                    EditBlackBoxController ctrl = new EditBlackBoxController();
-                    loader.setController(ctrl);
-                    Parent root = loader.load();
-                    Stage stg = new Stage();
-                    stg.setTitle("Edit " + name);
-                    stg.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-                    stg.show();
+                    root = loader.load();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                Stage stg = new Stage();
+                stg.setTitle("Edit " + name);
+                stg.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+                stg.show();
+
             }
         });
         allActions.add(b);
@@ -777,6 +767,49 @@ public class MainWindowController extends Component implements Initializable{
         paneId.getChildren().add(b);
     }
 
+    private void drawConstantGateHigh(int x, int y) {
+        Button b = new Button("Input");
+        b.setLayoutX(x);
+        b.setLayoutY(y);
+        b.setPrefSize(80,45);
+        b.getStyleClass().add("BBinputStyle");
+
+        int cnt = 1;
+        for (LogicCircuit l: logicCircuitMap.values())
+            if (l.getClass().equals(ConstantGate.class)) cnt++;
+        String name = "constant" + cnt;
+        ConstantGate constantGate = new ConstantGate(name,1,1,true);
+        logicCircuitMap.put(b, constantGate);
+
+        Label l = new Label();
+        l.setText("");
+        l.setLayoutX(x);
+        l.setLayoutY(y);
+        paneId.getChildren().add(l);
+
+
+        b.setOnMouseEntered(e-> {
+            b.getStyleClass().remove("BBinputStyle");
+            b.getStyleClass().add("BBinputStyleHover");
+        });
+        b.setOnMouseExited(e-> {
+            b.getStyleClass().remove("BBinputStyleHover");
+            b.getStyleClass().add("BBinputStyle");
+        });
+        allActions.add(b);
+        buttonLabelMap.put(b,l);
+        b.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                connecting = true;
+                connectingElement = constantGate;
+                connectingX = x+75;
+                connectingY = y+22;
+                drawOutlineForBBInput(b);
+            }
+        });
+        paneId.getChildren().add(b);
+    }
+
     private void drawConstantGateLow(MouseEvent actionEvent) {
         Button b = new Button("0");
         b.setLayoutX(actionEvent.getX()-12);
@@ -897,6 +930,84 @@ public class MainWindowController extends Component implements Initializable{
         paneId.getChildren().add(b);
     }
 
+    private void drawOutputGate(int x, int y) {
+        Button b = new Button("Output");
+        b.setLayoutX(x);
+        b.setLayoutY(y);
+        b.setPrefSize(80,45);
+        b.getStyleClass().add("BBoutputStyle");
+
+        int cnt = 1;
+        for (LogicCircuit l: logicCircuitMap.values())
+            if (l.getClass().equals(Output.class)) cnt++;
+        String name = "output" + cnt;
+        Output output = new Output(name);
+        logicCircuitMap.put(b, output);
+
+        Label l = new Label();
+        l.setText("");
+        l.setLayoutX(x);
+        l.setLayoutY(y);
+        paneId.getChildren().add(l);
+
+        b.setOnMouseEntered(e-> {
+            b.getStyleClass().remove("BBoutputStyle");
+            b.getStyleClass().add("BBoutputStyleHover");
+        });
+        b.setOnMouseExited(e-> {
+            b.getStyleClass().remove("BBoutputStyleHover");
+            b.getStyleClass().add("BBoutputStyle");
+        });
+        allActions.add(b);
+        buttonLabelMap.put(b,l);
+        b.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                if(connecting) {
+                    connecting = false;
+                    paneId.getChildren().remove(rectangle);
+
+                    Triples p = new Triples();
+                    Line line = new Line();
+                    boolean del = false;
+
+                    for(Triples t: allConns) {
+                        if(t.getFirst().equals(connectingElement)) {
+                            del = true;
+                            p = t;
+                            paneId.getChildren().remove(t.getSecond());
+                        }
+                    }
+                    if(del) allConns.remove(p);
+
+                    for(Triples t: allConns) {
+                        if(t.getThird().equals(logicCircuitMap.get(b))) {
+                            paneId.getChildren().remove(t.getSecond());
+                            p = t;
+                            del = true;
+                        }
+                    }
+                    if(del) allConns.remove(p);
+
+                    if(connectingElement.getOutputs().get(0)) b.setText("Output");
+                    else b.setText("Output");
+                    line.setStartX(x+5);
+                    line.setStartY(y+23);
+                    line.setEndX(connectingX);
+                    line.setEndY(connectingY);
+                    line.setOpacity(1);
+                    paneId.getChildren().add(line);
+
+                    allConns.add(new Triples(connectingElement, line, logicCircuitMap.get(b)));
+                    allLines.put(line, allLines.size());
+                    allActions.add(line);
+                    updateAll();
+                    updateAll();
+                }
+            }
+        });
+        paneId.getChildren().add(b);
+    }
+
     private void updateAll() {
         for(Triples t: allConns) {
             t.getFirst().operation(t.getFirst().getInputs());
@@ -908,7 +1019,8 @@ public class MainWindowController extends Component implements Initializable{
     private void updateButtons(LogicCircuit l) {
         for(Button b: logicCircuitMap.keySet()) {
             if(logicCircuitMap.get(b).equals(l)) {
-                if(l.getClass().equals(Output.class)) {
+                if(l.getClass().equals(Output.class) && !l.getName().equals("output1")) {
+                    System.out.println(l.getName());
                     if(l.getInputs().get(l.getInputs().size()-1)) b.setText("1");
                     else b.setText("0");
                 }
@@ -920,6 +1032,31 @@ public class MainWindowController extends Component implements Initializable{
     private void drawOutlineForStandardGateNot(Button b) {
         rectangle.setX((int)b.getLayoutX()-10);
         rectangle.setY((int)b.getLayoutY()-22);
+        rectangle.setWidth(90);
+        rectangle.setHeight(90);
+        rectangle.setFill(Color.TRANSPARENT);
+        rectangle.setStroke(Color.GREY);
+        rectangle.setArcWidth(20);
+        rectangle.setArcHeight(20);
+        rectangle.getStrokeDashArray().addAll(5d,5d);
+        paneId.getChildren().add(rectangle);
+    }
+
+    private void drawOutlineForBBInput(Button b) {
+        rectangle.setX((int)b.getLayoutX()-5);
+        rectangle.setY((int)b.getLayoutY()-22);
+        rectangle.setWidth(90);
+        rectangle.setHeight(90);
+        rectangle.setFill(Color.TRANSPARENT);
+        rectangle.setStroke(Color.GREY);
+        rectangle.setArcWidth(20);
+        rectangle.setArcHeight(20);
+        rectangle.getStrokeDashArray().addAll(5d,5d);
+        paneId.getChildren().add(rectangle);
+    }
+    private void drawOutlineForBBOutput(Button b) {
+        rectangle.setX((int)b.getLayoutX()-31);
+        rectangle.setY((int)b.getLayoutY()-30);
         rectangle.setWidth(90);
         rectangle.setHeight(90);
         rectangle.setFill(Color.TRANSPARENT);

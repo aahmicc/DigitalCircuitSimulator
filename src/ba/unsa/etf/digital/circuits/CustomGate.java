@@ -7,4 +7,13 @@ public class CustomGate extends LogicCircuit {
     public void operation(ArrayList<Boolean> inputs) {
 
     }
+
+    public CustomGate(String name, int numberOfInputs, int numberOfOutputs) {
+        super(name, numberOfInputs, numberOfOutputs);
+    }
+
+    @Override
+    public String toString() {
+        return "Custom Gate " + getNumberOfInputs();
+    }
 }
