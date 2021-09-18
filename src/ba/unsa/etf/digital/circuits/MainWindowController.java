@@ -87,7 +87,7 @@ public class MainWindowController extends Component implements Initializable{
             @Override public void handle(ActionEvent e) {
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/EditBlackBox.fxml"));
-                    EditBlackBoxController ctrl = new EditBlackBoxController();
+                    EditBlackBoxController ctrl = new EditBlackBoxController(recentlyUsedChoice);
                     loader.setController(ctrl);
                     Parent root = loader.load();
                     Stage stg = new Stage();
@@ -559,50 +559,40 @@ public class MainWindowController extends Component implements Initializable{
     }
 
     private void drawCustomGate(MouseEvent actionEvent) {
+        CustomGate cg = (CustomGate) recentlyUsedChoice.getSelectionModel().getSelectedItem();
+
+
+        int cnt = 1;
+        for (LogicCircuit l: logicCircuitMap.values())
+            if (l.getClass().equals(CustomGate.class)) cnt++;
+
+        CustomGate customGate = new CustomGate(cg.getName() + cnt, 2, 1);
+        customGate.setOutputsCustom(cg.getOutputsCustom());
+
         actionEventAnd = actionEvent;
         Button b = new Button();
         b.setLayoutX(actionEvent.getX()-32);
         b.setLayoutY(actionEvent.getY()-17);
         b.setPrefSize(65,34);
-        b.getStyleClass().add("standardXnorStyle");
+        b.getStyleClass().add("customGateStyle");
 
-        int cnt = 1;
-        for (LogicCircuit l: logicCircuitMap.values())
-            if (l.getClass().equals(XnorGate.class)) cnt++;
-        String name = "xnor" + cnt;
-        XnorGate xnorGate = new XnorGate(name,2,1);
-        logicCircuitMap.put(b, xnorGate);
+        String name = customGate.toString();
+
+        logicCircuitMap.put(b, customGate);
 
         Label l = new Label();
         l.setText(name);
-        l.setLayoutX(actionEvent.getX()-15);
+        l.setLayoutX(actionEvent.getX()-55);
         l.setLayoutY(actionEvent.getY()+20);
         paneId.getChildren().add(l);
 
         b.setOnMouseEntered(e-> {
-            b.getStyleClass().remove("standardXnorStyle");
-            b.getStyleClass().add("standardXnorStyleHover");
+            b.getStyleClass().remove("customGateStyle");
+            b.getStyleClass().add("customGateStyleHover");
         });
         b.setOnMouseExited(e-> {
-            b.getStyleClass().remove("standardXnorStyleHover");
-            b.getStyleClass().add("standardXnorStyle");
-        });
-        b.setOnMouseClicked(event -> {
-            if (event.getButton() == MouseButton.SECONDARY)
-            {
-                try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/EditBlackBox.fxml"));
-                    EditBlackBoxController ctrl = new EditBlackBoxController();
-                    loader.setController(ctrl);
-                    Parent root = loader.load();
-                    Stage stg = new Stage();
-                    stg.setTitle("Edit " + name);
-                    stg.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-                    stg.show();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+            b.getStyleClass().remove("customGateStyleHover");
+            b.getStyleClass().add("customGateStyle");
         });
         allActions.add(b);
         buttonLabelMap.put(b,l);
@@ -615,7 +605,7 @@ public class MainWindowController extends Component implements Initializable{
                 }
                 else {
                     connecting = true;
-                    connectingElement = xnorGate;
+                    connectingElement = customGate;
                     connectingX = actionEvent.getX()+32;
                     connectingY = actionEvent.getY();
                     drawOutlineForStandardGate(b);

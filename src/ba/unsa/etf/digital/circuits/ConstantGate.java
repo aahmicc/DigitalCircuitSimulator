@@ -23,7 +23,10 @@ public class ConstantGate extends LogicCircuit {
     public ConstantGate(String name) {
         super(name);
     }
-
+    public void setCon(boolean c)
+    {
+        con = c;
+    }
     @Override
     public void operation(ArrayList<Boolean> inputs) {
         ArrayList<Boolean> p = new ArrayList<Boolean>();

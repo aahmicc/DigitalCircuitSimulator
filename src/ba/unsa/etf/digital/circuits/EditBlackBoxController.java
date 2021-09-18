@@ -3,33 +3,27 @@ package ba.unsa.etf.digital.circuits;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Side;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseButton;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
 
 import java.awt.*;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
-
-import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
 
 public class EditBlackBoxController extends Component implements Initializable{
 
@@ -38,6 +32,7 @@ public class EditBlackBoxController extends Component implements Initializable{
     public Separator separator1,separator2,separator3,separator4,separator5,separator6,separator7,separator8;
     public ChoiceBox<LogicCircuit> recentlyUsedChoice;
     public Pane paneId;
+    public TextField customTextFieldId;
     private Rectangle rectangle = new Rectangle();
 
     private boolean connecting = false;
@@ -62,8 +57,11 @@ public class EditBlackBoxController extends Component implements Initializable{
 
 
     public Button editBlackBoxInput1, editBlackBoxInput2, editBlackBoxOutput;
+    private Output outputPriv;
 
-    public EditBlackBoxController() {
+    private ChoiceBox<LogicCircuit> recentlyUsedChoiceCopy;
+    public EditBlackBoxController(ChoiceBox<LogicCircuit> recentlyUsedChoice) {
+        recentlyUsedChoiceCopy = recentlyUsedChoice;
     }
 
     @Override
@@ -575,7 +573,7 @@ public class EditBlackBoxController extends Component implements Initializable{
             b.getStyleClass().remove("standardXnorStyleHover");
             b.getStyleClass().add("standardXnorStyle");
         });
-        b.setOnMouseClicked(event -> {
+        /*b.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.SECONDARY)
             {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/EditBlackBox.fxml"));
@@ -593,7 +591,7 @@ public class EditBlackBoxController extends Component implements Initializable{
                 stg.show();
 
             }
-        });
+        });*/
         allActions.add(b);
         buttonLabelMap.put(b,l);
         b.setOnAction(new EventHandler<ActionEvent>() {
@@ -767,6 +765,9 @@ public class EditBlackBoxController extends Component implements Initializable{
         paneId.getChildren().add(b);
     }
 
+    private ConstantGate constantGate1, constantGate2;
+    private int inputGateCounter = 0;
+
     private void drawConstantGateHigh(int x, int y) {
         Button b = new Button("Input");
         b.setLayoutX(x);
@@ -778,8 +779,20 @@ public class EditBlackBoxController extends Component implements Initializable{
         for (LogicCircuit l: logicCircuitMap.values())
             if (l.getClass().equals(ConstantGate.class)) cnt++;
         String name = "constant" + cnt;
-        ConstantGate constantGate = new ConstantGate(name,1,1,true);
+
+        ConstantGate constantGate;
+        if(inputGateCounter == 0) {
+            constantGate1 = new ConstantGate(name, 1, 1, true);
+            constantGate = constantGate1;
+        }
+        else {
+            constantGate2 = new ConstantGate(name, 1, 1, true);
+            constantGate = constantGate2;
+        }
+
         logicCircuitMap.put(b, constantGate);
+
+        inputGateCounter++;
 
         Label l = new Label();
         l.setText("");
@@ -941,8 +954,8 @@ public class EditBlackBoxController extends Component implements Initializable{
         for (LogicCircuit l: logicCircuitMap.values())
             if (l.getClass().equals(Output.class)) cnt++;
         String name = "output" + cnt;
-        Output output = new Output(name);
-        logicCircuitMap.put(b, output);
+        outputPriv = new Output(name);
+        logicCircuitMap.put(b, outputPriv);
 
         Label l = new Label();
         l.setText("");
@@ -1021,7 +1034,7 @@ public class EditBlackBoxController extends Component implements Initializable{
             if(logicCircuitMap.get(b).equals(l)) {
                 if(l.getClass().equals(Output.class) && !l.getName().equals("output1")) {
                     System.out.println(l.getName());
-                    if(l.getInputs().get(l.getInputs().size()-1)) b.setText("1");
+                    if (l.getInputs().get(l.getInputs().size() - 1)) b.setText("1");
                     else b.setText("0");
                 }
             }
@@ -1118,6 +1131,41 @@ public class EditBlackBoxController extends Component implements Initializable{
     }
 
     public void exitAction(ActionEvent actionEvent) {
+    }
+    public void onSaveCustomGate(ActionEvent actionEvent) {
+        ArrayList<Boolean> outputsTemp = new ArrayList<>();
+
+        constantGate1.setCon(false);
+        constantGate2.setCon(false);
+        updateAll(); updateAll();
+        outputsTemp.add(outputPriv.getInputs().get(outputPriv.getInputs().size()-1));
+
+        constantGate1.setCon(false);
+        constantGate2.setCon(true);
+        updateAll(); updateAll();
+        outputsTemp.add(outputPriv.getInputs().get(outputPriv.getInputs().size()-1));
+
+        constantGate1.setCon(true);
+        constantGate2.setCon(false);
+        updateAll(); updateAll();
+        outputsTemp.add(outputPriv.getInputs().get(outputPriv.getInputs().size()-1));
+
+        constantGate1.setCon(true);
+        constantGate2.setCon(true);
+        updateAll(); updateAll();
+        outputsTemp.add(outputPriv.getInputs().get(outputPriv.getInputs().size()-1));
+        System.out.println(outputsTemp.size());
+
+
+        if(customTextFieldId.getText().length() > 2) {
+            CustomGate customGate = new CustomGate(customTextFieldId.getText(), 2, 1);
+            customGate.setOutputsCustom(outputsTemp);
+
+            ObservableList<LogicCircuit> temp = recentlyUsedChoiceCopy.getItems();
+            temp.add(customGate);
+            recentlyUsedChoiceCopy.setItems(temp);
+        }
+
     }
 
     private HashMap<Button, LogicCircuit> logicCircuitMapDel = new HashMap<>();
