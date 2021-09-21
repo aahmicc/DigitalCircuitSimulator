@@ -5,6 +5,9 @@ Web/Desktop (PC) simulator intended for creating logic circuits, their simulatio
 * Creating logic circuits - User can choose between many standard logic gates, and the ones that he has created and connect them in the main panel.
 * Simulation - Digital circuit that has been made by the user can be tested (simulated). User will get informations about the logic states from all parts of the circuit.
 * Black-Box functionality - This functionality allows users to create their own "standard" circuits which they can use later as one single element.
+
+To be added:
+
 * Logic conversions:
   * Converting logic functions into logic circuits.
   * Converting logic circuits into logic functions.
